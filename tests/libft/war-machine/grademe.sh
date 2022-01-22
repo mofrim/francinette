@@ -6,7 +6,7 @@
 #    By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/23 18:26:01 by jtoty             #+#    #+#              #
-#    Updated: 2022/01/22 16:43:18 by fsoares-         ###   ########.fr        #
+#    Updated: 2022/01/22 19:22:10 by fsoares-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -145,7 +145,7 @@ then
 	then
 		rm -rf "${PATH_TEST}"/dirlibft
 	fi
-	printf "Copying files...\nPlease wait a moment.\n"
+	#printf "Copying files...\nPlease wait a moment.\n"
 	mkdir "${PATH_TEST}"/dirlibft
 	mkdir "${PATH_TEST}"/dirlibft/${SRC_DIR}
 	mkdir "${PATH_TEST}"/dirlibft/${HEADER_DIR}
