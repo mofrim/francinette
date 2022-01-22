@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    compil_lib.sh                                      :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jtoty <jtoty@student.42.fr>                +#+  +:+       +#+         #
+#    By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/23 18:26:36 by jtoty             #+#    #+#              #
-#    Updated: 2021/02/04 07:52:23 by lmartin          ###   ########.fr        #
+#    Updated: 2022/01/22 16:25:15 by fsoares-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ func_compil_lib()
 	printf "%.s${CHAR_LENGTH}" $(seq 1 ${TITLE_LENGTH})
 	printf "\n${CHAR_WIDTH}\033[$(( (${TITLE_LENGTH} - ${#text}) / 2 ))G${text}\033[${TITLE_LENGTH}G${CHAR_WIDTH}\n"
 	printf "%.s${CHAR_LENGTH}" $(seq 1 ${TITLE_LENGTH})
-	printf "\n\n${DEFAULT}"
+	printf "\n${DEFAULT}rules:\n"
 	if [ -e "${PATH_LIBFT}"/libft.a ]
 	then
 		rm -f "${PATH_LIBFT}"/libft.a
@@ -35,27 +35,25 @@ func_compil_lib()
 		printf "\033[$(( (${TITLE_LENGTH} - ${#text}) / 2 ))G${COLOR_FAIL}${text}${DEFAULT}\n\n"
 		printf "\n${text}\n" >> "${PATH_DEEPTHOUGHT}"/deepthought
 	else
-		if [ ${OPT_FULL_MAKEFILE} -eq 1 ]
-		then
-			printf "make all"
-			printf "\033[17Gmake \$(NAME)"
-			printf "\033[34Gmake fclean"
-			printf "\033[51Gmake re"
-			printf "\033[34Gmake bonus"
-			printf "\033[67Gmake clean"
-			printf "\033[83Glibft.a\n"
-		else
-			printf "rule all"
-			printf "\033[17Grule \$(NAME)"
-			printf "\033[34Grule clean"
-			printf "\033[51Grule fclean"
-			printf "\033[34Grule bonus"
-			printf "\033[67Gmake re"
-			printf "\033[83Glibft.a\n"
-		fi
+		# if [ ${OPT_FULL_MAKEFILE} -eq 1 ]
+		# then
+		# 	printf "all"
+		# 	printf "\033[11G\$(NAME)"
+		# 	printf "\033[22Gfclean"
+		# 	printf "\033[33Gre"
+		# 	printf "\033[44Gbonus"
+		# 	printf "\033[55Gclean"
+		# 	printf "\033[66Glibft.a\n"
+		# else
+			printf "all"
+			printf "\033[12G\$(NAME)"
+			printf "\033[26Gfclean"
+			printf "\033[39Gre"
+			printf "\033[52Gclean"
+			printf "\033[64Gbonus"
+			printf "\033[74Glibft.a\n"
+		# fi
 
-		if [ ${OPT_FULL_MAKEFILE} -eq 1 ]
-		then
 			rm -f "${PATH_LIBFT}"/ft_*.o
 			printf "\n$> make all\n" >> "${PATH_DEEPTHOUGHT}"/deepthought
 			make --no-print-directory -C "${PATH_LIBFT}" all>>"${PATH_DEEPTHOUGHT}"/deepthought 2>&1
@@ -71,133 +69,93 @@ func_compil_lib()
 					printf "${COLOR_FAIL}fail${DEFAULT}"
 				fi
 			fi
-		else
-			if [ -z "$(grep -w all "${PATH_LIBFT}"/${MAKEFILE_VAR} | tr -d ' ' | tr -d '\t' | cut -d ':' -f 1 | grep -w all)" ]
-			then
-				printf "${COLOR_FAIL}not found${DEFAULT}"
-			else
-				printf "${COLOR_OK}found${DEFAULT}"
-			fi
-		fi
 
-		if [ ${OPT_FULL_MAKEFILE} -eq 1 ]
-		then
 			rm -f "${PATH_LIBFT}"/ft_*.o
 			printf "\n$> make $(grep -w NAME "${PATH_LIBFT}"/Makefile | grep = | cut -d '=' -f 2 | tr -d ' ' | tr -d '\t')\n" >> "${PATH_DEEPTHOUGHT}"/deepthought
 			make --no-print-directory -C "${PATH_LIBFT}" $(grep NAME "${PATH_LIBFT}"/${MAKEFILE_VAR} | grep = | cut -d '=' -f 2 | tr -d ' ' | tr -d '\t') >>"${PATH_DEEPTHOUGHT}"/deepthought 2>&1
 			if [ -z "$(grep -w '$(NAME)' "${PATH_LIBFT}"/${MAKEFILE_VAR} | grep ':' | tr -d ' ' | tr -d '\t' | cut -d ':' -f 1 | grep -w '$(NAME)')" | grep -w '${NAME}'} ]
 			then
-				printf "\033[17G${COLOR_FAIL}missing rule${DEFAULT}"
+				printf "\033[12G${COLOR_FAIL}missing${DEFAULT}"
 			else
 				if [ -e "${PATH_LIBFT}"/libft.a ]
 				then
-					printf "\033[17G${COLOR_OK}ok${DEFAULT}"
+					printf "\033[12G${COLOR_OK}ok${DEFAULT}"
 				else
-					printf "\033[17G${COLOR_FAIL}fail${DEFAULT}"
+					printf "\033[12G${COLOR_FAIL}fail${DEFAULT}"
 					touch "${PATH_LIBFT}"/libft.a
 				fi
 			fi
-		else
-			if [ -z "$(grep -w '$(NAME)' "${PATH_LIBFT}"/${MAKEFILE_VAR} | grep ':' | tr -d ' ' | tr -d '\t' | cut -d ':' -f 1 | grep -w '$(NAME)')" | grep -w '${NAME}'}]
-			then
-				printf "\033[17G${COLOR_FAIL}not found${DEFAULT}"
-			else
-				printf "\033[17G${COLOR_OK}found${DEFAULT}"
-			fi
-		fi
 
-		if [ ${OPT_FULL_MAKEFILE} -eq 1 ]
-		then
 			printf "\n$> make fclean\n" >> "${PATH_DEEPTHOUGHT}"/deepthought
 			make --no-print-directory -C "${PATH_LIBFT}" fclean >> "${PATH_DEEPTHOUGHT}"/deepthought 2>&1
 			if [ -z "$(grep -w fclean "${PATH_LIBFT}"/${MAKEFILE_VAR} | tr -d ' ' | tr -d '\t' | cut -d ':' -f 1 | grep -w fclean)" ]
 			then
-				printf "\033[34G${COLOR_FAIL}missing rule${DEFAULT}"
+				printf "\033[26G${COLOR_FAIL}missing${DEFAULT}"
 			else
 				if [ ! -e "${PATH_LIBFT}"/libft.a ] && [ ! -e "${PATH_LIBFT}"/ft_*.o ]
 				then
-					printf "\033[34G${COLOR_OK}ok${DEFAULT}"
+					printf "\033[26G${COLOR_OK}ok${DEFAULT}"
 					touch "${PATH_LIBFT}"/libft.a
 				else
-					printf "\033[34G${COLOR_FAIL}fail${DEFAULT}"
+					printf "\033[26G${COLOR_FAIL}fail${DEFAULT}"
 					rm -f "${PATH_LIBFT}"/ft_*.o
 					rm -f "${PATH_LIBFT}"/libft.a
 				fi
 			fi
-		else
-			if [ -z "$(grep -w clean "${PATH_LIBFT}"/${MAKEFILE_VAR} | tr -d ' ' | tr -d '\t' | cut -d ':' -f 1 | grep -w clean)" ]
-			then
-				printf "\033[34G${COLOR_FAIL}not found${DEFAULT}"
-			else
-				printf "\033[34G${COLOR_OK}found${DEFAULT}"
-			fi
-		fi
+
 
 		printf "\n$> make re\n" >> "${PATH_DEEPTHOUGHT}"/deepthought
-		if [ ${OPT_FULL_MAKEFILE} -eq 1 ]
-		then
+
 			make --no-print-directory -C "${PATH_LIBFT}" re >> "${PATH_DEEPTHOUGHT}"/deepthought 2>&1
 			if [ -z "$(grep -w re "${PATH_LIBFT}"/${MAKEFILE_VAR} | tr -d ' ' | tr -d '\t' | cut -d ':' -f 1 | grep -w re)" ]
 			then
-				printf "\033[51G${COLOR_FAIL}missing rule${DEFAULT}"
+				printf "\033[39G${COLOR_FAIL}missing${DEFAULT}"
 			else
 				if [ -e "${PATH_LIBFT}"/libft.a ]
 				then
-					printf "\033[51G${COLOR_OK}ok${DEFAULT}"
+					printf "\033[39G${COLOR_OK}ok${DEFAULT}"
 				else
-					printf "\033[51G${COLOR_FAIL}fail${DEFAULT}"
+					printf "\033[39G${COLOR_FAIL}fail${DEFAULT}"
 				fi
 			fi
-		else
-			if [ -z "$(grep -w fclean "${PATH_LIBFT}"/${MAKEFILE_VAR} | tr -d ' ' | tr -d '\t' | cut -d ':' -f 1 | grep -w fclean)" ]
-			then
-				printf "\033[51G${COLOR_FAIL}not found${DEFAULT}"
-			else
-				printf "\033[51G${COLOR_OK}found${DEFAULT}"
-			fi
-		fi
 
-		if [ ${OPT_FULL_MAKEFILE} -eq 1 ]
-		then
 			printf "\n$> make clean\n" >> "${PATH_DEEPTHOUGHT}"/deepthought
 			make --no-print-directory -C "${PATH_LIBFT}" clean >> "${PATH_DEEPTHOUGHT}"/deepthought 2>&1
 			if [ -z "$(grep -w clean "${PATH_LIBFT}"/${MAKEFILE_VAR} | tr -d ' ' | tr -d '\t' | cut -d ':' -f 1 | grep -w clean)" ]
 			then
-				printf "\033[67G${COLOR_FAIL}missing rule${DEFAULT}"
+				printf "\033[52G${COLOR_FAIL}missing${DEFAULT}"
 			else
 				if [ ! -e "${PATH_LIBFT}"/ft_*.o ]
 				then
-					printf "\033[67G${COLOR_OK}ok${DEFAULT}"
+					printf "\033[52G${COLOR_OK}ok${DEFAULT}"
 				else
-					printf "\033[67G${COLOR_FAIL}fail${DEFAULT}"
+					printf "\033[52G${COLOR_FAIL}fail${DEFAULT}"
 				fi
 			fi
-		else
-			make --no-print-directory -C "${PATH_LIBFT}" re >> "${PATH_DEEPTHOUGHT}"/deepthought 2>&1
-			if [ -z "$(grep -w re "${PATH_LIBFT}"/${MAKEFILE_VAR} | tr -d ' ' | tr -d '\t' | cut -d ':' -f 1 | grep -w re)" ]
-			then
-				printf "\033[67G${COLOR_FAIL}missing rule${DEFAULT}"
-			else
-				if [ -e "${PATH_LIBFT}"/libft.a ]
-				then
-					printf "\033[67G${COLOR_OK}ok${DEFAULT}"
-				else
-					printf "\033[67G${COLOR_FAIL}fail${DEFAULT}"
-				fi
-			fi
-		fi
+
 
 		rm -f "${PATH_LIBFT}"/ft_*.o
 		printf "\n$> make bonus\n" >> "${PATH_DEEPTHOUGHT}"/deepthought
 		make --no-print-directory -C "${PATH_LIBFT}" bonus>>"${PATH_DEEPTHOUGHT}"/deepthought 2>&1
+		if [ -z "$(grep -w bonus "${PATH_LIBFT}"/${MAKEFILE_VAR} | tr -d ' ' | tr -d '\t' | cut -d ':' -f 1 | grep -w bonus)" ]
+			then
+				printf "\033[64G${COLOR_FAIL}missing${DEFAULT}"
+			else
+				if [ -e "${PATH_LIBFT}"/libft.a ]
+				then
+					printf "\033[64G${COLOR_OK}ok${DEFAULT}"
+				else
+					printf "\033[64G${COLOR_FAIL}fail${DEFAULT}"
+				fi
+			fi
 
 		printf "\n$> ls -la libft.a\n" >> "${PATH_DEEPTHOUGHT}"/deepthought
 		ls -la "${PATH_LIBFT}"/libft.a >> "${PATH_DEEPTHOUGHT}"/deepthought
 		if [ -e "${PATH_LIBFT}"/libft.a ]
 		then
-			printf "\033[83G${COLOR_OK}found\n\n${DEFAULT}"
+			printf "\033[74G${COLOR_OK}found\n${DEFAULT}"
 		else
-			printf "\033[83G${COLOR_FAIL}not found\n\n${DEFAULT}"
+			printf "\033[74G${COLOR_FAIL}not found\n${DEFAULT}"
 		fi
 	fi
 }

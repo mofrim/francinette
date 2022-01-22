@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    test_function.sh                                   :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jtoty <jtoty@student.42.fr>                +#+  +:+       +#+         #
+#    By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/23 18:27:09 by jtoty             #+#    #+#              #
-#    Updated: 2021/02/04 07:13:42 by lmartin          ###   ########.fr        #
+#    Updated: 2022/01/22 16:27:47 by fsoares-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,9 +53,9 @@ test_function()
 	printf "\n${COLOR_PART}$(echo ${part} | cut -d _ -f 1) functions\n\n"
 	printf "${COLOR_TITLE}"
 	printf "FUNCTION"
-	printf "\033[${NORME_COL}GNORME"
-	printf "\033[${CHEAT_COL}GFORBIDDEN FUNC."
-	printf "\033[${COMPIL_COL}GCOMPIL."
+	#printf "\033[${NORME_COL}GNORME"
+	#printf "\033[${CHEAT_COL}GFORBIDDEN FUNC."
+	#printf "\033[${COMPIL_COL}GCOMPIL."
 	printf "\033[${TEST_COL}GTESTS"
 	printf "\033[${RESULT_COL}GRESULT\n${DEFAULT}"
 
@@ -75,17 +75,17 @@ test_function()
 			if [ $file -eq 1 ]
 			then
 				result=1
-				if [ ${OPT_NO_NORMINETTE} -eq 0 ]
-				then
-					check_norme $function
-					check=$?
-					if [ $check -eq 0 ]
-					then
-						result=0
-					fi
-				else
-					printf "\033[${NORME_COL}G${DEFAULT}disabled"
-				fi
+				# if [ ${OPT_NO_NORMINETTE} -eq 0 ]
+				# then
+				# 	check_norme $function
+				# 	check=$?
+				# 	if [ $check -eq 0 ]
+				# 	then
+				# 		result=0
+				# 	fi
+				# else
+				# 	printf "\033[${NORME_COL}G${DEFAULT}disabled"
+				# fi
 				if [ -e "${PATH_TEST}"/dirlibft/${SRC_DIR}/$1 ]
 				then
 					compilation $function
@@ -96,21 +96,21 @@ test_function()
 				check=$?
 				if [ $check -eq 1 ]
 				then
-					if [ ${OPT_NO_FORBIDDEN} -eq 0 ]
-					then
-						check_cheating $function $(( ${part}_authorized[$i] ))
-						check=$?
-						if [ $check -eq 1 ]
-						then
-							result=0
-						fi
-					else
-						printf "\033[${CHEAT_COL}G${DEFAULT}disabled"
-					fi
+					# if [ ${OPT_NO_FORBIDDEN} -eq 0 ]
+					# then
+					# 	check_cheating $function $(( ${part}_authorized[$i] ))
+					# 	check=$?
+					# 	if [ $check -eq 1 ]
+					# 	then
+					# 		result=0
+					# 	fi
+					# else
+					# 	printf "\033[${CHEAT_COL}G${DEFAULT}disabled"
+					# fi
 					diff_test $function
 				else
-					printf "\033[${CHEAT_COL}G"
-					printf "${COLOR_FAIL}compil. failed${DEFAULT}"
+					#printf "\033[${CHEAT_COL}G"
+					#printf "${COLOR_FAIL}compil. failed${DEFAULT}"
 					printf "\033[${TEST_COL}G"
 					printf "${COLOR_FAIL}compil. failed${DEFAULT}"
 					result=0
@@ -136,5 +136,4 @@ test_function()
 		fi
 		let	"i += 1"
 	done
-	printf "\n${COLOR_TOTAL}Total : ${success}/${total}${DEFAULT}\n"
 }

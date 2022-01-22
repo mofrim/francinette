@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    grademe.sh                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jtoty <jtoty@student.42.fr>                +#+  +:+       +#+         #
+#    By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/23 18:26:01 by jtoty             #+#    #+#              #
-#    Updated: 2021/02/04 07:07:10 by lmartin          ###   ########.fr        #
+#    Updated: 2022/01/22 16:43:18 by fsoares-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -208,7 +208,6 @@ init_deepthought()
 	clang --version >> "${PATH_DEEPTHOUGHT}"/deepthought
 }
 
-clear
 init_deepthought
 
 if [ -e "${PATH_LIBFT}/Makefile" ]
@@ -221,10 +220,10 @@ else
 	MAKEFILE_VAR="missing_makefile"
 fi
 
-if [ ${OPT_NO_SEARCH} -eq 0 ]
-then
-	func_check_file
-fi
+#if [ ${OPT_NO_SEARCH} -eq 0 ]
+#then
+#	func_check_file
+#fi
 if [ ${OPT_NO_LIBRARY} -eq 0 ]
 then
 	func_compil_lib
@@ -260,37 +259,9 @@ do
 	fi
 done
 
-if [ -e "${PATH_TEST}"/a.out ]
-then
-	rm "${PATH_TEST}"/a.out
-fi
-
-if [ -e "${PATH_TEST}"/libft.h ]
-then
-	rm "${PATH_TEST}"/libft.h
-fi
-
-if [ -e "${PATH_TEST}"/main_check_cheating.c ]
-then
-	rm "${PATH_TEST}"/main_check_cheating.c
-fi
-
-if [ ${DIRECTORY} -eq 1 ]
-then
-	if [ -d "${PATH_TEST}"/dirlibft ]
-	then
-		rm -rf "${PATH_TEST}"/dirlibft
-	fi
-fi
-
 if [ ${ACTIVATE_PART1} -eq 1 ] || [ ${ACTIVATE_PART2} -eq 1 ] || [ ${ACTIVATE_BONUS} -eq 1 ] || [ ${ACTIVATE_ADDITIONAL} -eq 1 ]
 then
 	printf "Abort : ${RED}A${DEFAULT} Bus error : ${RED}B${DEFAULT} Segmentation fault : ${RED}S${DEFAULT} Timeout : ${RED}T${DEFAULT} Nothing turned in : ${RED}NTI${DEFAULT}\n"
 	printf "\n"
 fi
 printf "A deepthought file has been generated in ${COLOR_DEEPTHOUGHT_PATH}\"${PATH_DEEPTHOUGHT}\"\n\n${DEFAULT}"
-make --no-print-directory -C "${PATH_LIBFT}" fclean > /dev/null
-
-# nuke_it_all
-find "${PATH_TEST}" -name 'user_output_test*' -delete
-rm -rf "${PATH_TEST}"/dirlibft/

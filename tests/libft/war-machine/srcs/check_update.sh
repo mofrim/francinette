@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    check_update.sh                                    :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jtoty <jtoty@student.42.fr>                +#+  +:+       +#+         #
+#    By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/23 18:26:27 by jtoty             #+#    #+#              #
-#    Updated: 2017/01/23 18:26:28 by jtoty            ###   ########.fr        #
+#    Updated: 2022/01/22 15:25:51 by fsoares-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@
 
 func_check_update()
 {
+	return
 	printf "Checking for updates...\n"
 	if [ "$(git fetch --all 2>&1 | grep fatal)" == "" ]
 	then

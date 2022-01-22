@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    variables.sh                                       :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jtoty <jtoty@student.42.fr>                +#+  +:+       +#+         #
+#    By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/23 18:27:13 by jtoty             #+#    #+#              #
-#    Updated: 2021/02/04 07:00:42 by lmartin          ###   ########.fr        #
+#    Updated: 2022/01/22 15:52:24 by fsoares-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,9 +102,9 @@ system_func=('void' 'malloc' 'free' 'printf' 'write')
 NORME_COL=23
 CHEAT_COL=50
 COMPIL_COL=38
-TEST_COL=67
-RESULT_COL=87
-TITLE_LENGTH=92
+TEST_COL=18
+RESULT_COL=39
+TITLE_LENGTH=80
 CHAR_LENGTH="-"
 CHAR_WIDTH="|"
 

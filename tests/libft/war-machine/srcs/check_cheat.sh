@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    check_cheat.sh                                     :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jtoty <jtoty@student.42.fr>                +#+  +:+       +#+         #
+#    By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/23 18:26:13 by jtoty             #+#    #+#              #
-#    Updated: 2017/01/23 18:26:15 by jtoty            ###   ########.fr        #
+#    Updated: 2022/01/22 15:28:52 by fsoares-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@
 
 check_cheating()
 {
+	return
 	if [ -e "${PATH_LIBFT}"/$1 ]
 	then
 		clang -Wextra -Wall -Werror "${PATH_LIBFT}"/$1 "${PATH_TEST}"/main_check_cheating.c "${PATH_LIBFT}"/libft.a
