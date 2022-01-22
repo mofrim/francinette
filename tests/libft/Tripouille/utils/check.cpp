@@ -13,7 +13,7 @@ void check(bool succes)
 
 void mcheck(void * p, size_t required_size)
 {
-	void * p2 = malloc(required_size); 
+	void * p2 = malloc(required_size);
 	#ifdef __unix__
 	if (malloc_usable_size(p) == malloc_usable_size(p2))
 	#endif
@@ -24,4 +24,10 @@ void mcheck(void * p, size_t required_size)
 	else
 		{std::ostringstream ss; ss << FG_RED << iTest++ << ".MKO "; write(1, ss.str().c_str(), ss.str().size());}
 	free(p2);
+}
+
+void sigalarm(int signal)
+{
+	cout << FG_LYELLOW << iTest++ << ".TIMEOUT" << ENDL;
+	exit(signal);
 }
