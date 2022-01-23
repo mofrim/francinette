@@ -6,7 +6,7 @@
 #    By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/23 18:26:36 by jtoty             #+#    #+#              #
-#    Updated: 2022/01/22 16:25:15 by fsoares-         ###   ########.fr        #
+#    Updated: 2022/01/24 00:28:02 by fsoares-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,7 @@ func_compil_lib()
 			rm -f "${PATH_LIBFT}"/ft_*.o
 			printf "\n$> make $(grep -w NAME "${PATH_LIBFT}"/Makefile | grep = | cut -d '=' -f 2 | tr -d ' ' | tr -d '\t')\n" >> "${PATH_DEEPTHOUGHT}"/deepthought
 			make --no-print-directory -C "${PATH_LIBFT}" $(grep NAME "${PATH_LIBFT}"/${MAKEFILE_VAR} | grep = | cut -d '=' -f 2 | tr -d ' ' | tr -d '\t') >>"${PATH_DEEPTHOUGHT}"/deepthought 2>&1
-			if [ -z "$(grep -w '$(NAME)' "${PATH_LIBFT}"/${MAKEFILE_VAR} | grep ':' | tr -d ' ' | tr -d '\t' | cut -d ':' -f 1 | grep -w '$(NAME)')" | grep -w '${NAME}'} ]
+			if [ -z "$(grep -w '$(NAME)' "${PATH_LIBFT}"/${MAKEFILE_VAR} | grep ':' | tr -d ' ' | tr -d '\t' | cut -d ':' -f 1 | grep -w '$(NAME)')" || grep -w '${NAME}' "${PATH_LIBFT}"/${MAKEFILE_VAR} ]
 			then
 				printf "\033[12G${COLOR_FAIL}missing${DEFAULT}"
 			else
