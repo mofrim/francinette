@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/17 17:42:18 by alelievr          #+#    #+#             */
-/*   Updated: 2020/07/03 15:35:48 by user42           ###   ########.fr       */
+/*   Updated: 2022/01/24 19:29:04 by fsoares-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -4750,10 +4750,10 @@ void            test_ft_atoi(void){
 	add_fun_subtest(test_ft_atoi_string);
 	add_fun_subtest(test_ft_atoi_max_int);
 	add_fun_subtest(test_ft_atoi_min_int);
-	add_fun_subtest(test_ft_atoi_max_long);
-	add_fun_subtest(test_ft_atoi_min_long);
-	add_fun_subtest(test_ft_atoi_over_max_long);
-	add_fun_subtest(test_ft_atoi_over_min_long);
+	//add_fun_subtest(test_ft_atoi_max_long);
+	//add_fun_subtest(test_ft_atoi_min_long);
+	//add_fun_subtest(test_ft_atoi_over_max_long);
+	//add_fun_subtest(test_ft_atoi_over_min_long);
 	add_fun_subtest(test_ft_atoi_plus0);
 	add_fun_subtest(test_ft_atoi_plus1);
 	add_fun_subtest(test_ft_atoi_plus2);
@@ -5416,8 +5416,8 @@ void			test_ft_striteri_null2(void *ptr) {
 void            test_ft_striteri(void){
 	add_fun_subtest(test_ft_striteri_basic);
 	add_fun_subtest(test_ft_striteri_electric_memory);
-	add_fun_subtest(test_ft_striteri_null1);
-	add_fun_subtest(test_ft_striteri_null2);
+	//add_fun_subtest(test_ft_striteri_null1);
+	//add_fun_subtest(test_ft_striteri_null2);
 }
 
 ////////////////////////////////
@@ -5711,8 +5711,8 @@ void            test_ft_strmapi(void){
 	add_fun_subtest(test_ft_strmapi_zero);
 	add_fun_subtest(test_ft_strmapi_malloc_size);
 	add_fun_subtest(test_ft_strmapi_malloc_null);
-	add_fun_subtest(test_ft_strmapi_null1);
-	add_fun_subtest(test_ft_strmapi_null2);
+	//add_fun_subtest(test_ft_strmapi_null1);
+	//add_fun_subtest(test_ft_strmapi_null2);
 }
 
 ////////////////////////////////
@@ -6118,7 +6118,7 @@ void            test_ft_substr(void){
 	add_fun_subtest(test_ft_substr_malloc_null);
 	add_fun_subtest(test_ft_substr_all);
 	add_fun_subtest(test_ft_substr_electric_memory);
-	add_fun_subtest(test_ft_substr_null);
+	//add_fun_subtest(test_ft_substr_null);
 	add_fun_subtest(test_ft_substr_big_start);
 }
 
@@ -6254,8 +6254,8 @@ void            test_ft_strjoin(void){
 	add_fun_subtest(test_ft_strjoin_overlap);
 	add_fun_subtest(test_ft_strjoin_malloc_null);
 	add_fun_subtest(test_ft_strjoin_zero);
-	add_fun_subtest(test_ft_strjoin_null1);
-	add_fun_subtest(test_ft_strjoin_null2);
+	//add_fun_subtest(test_ft_strjoin_null1);
+	//add_fun_subtest(test_ft_strjoin_null2);
 }
 
 ////////////////////////////////
@@ -6445,7 +6445,7 @@ void            test_ft_strtrim(void){
 	add_fun_subtest(test_ft_strtrim_free);
 	add_fun_subtest(test_ft_strtrim_malloc_null);
 	add_fun_subtest(test_ft_strtrim_zero);
-	add_fun_subtest(test_ft_strtrim_null);
+	//add_fun_subtest(test_ft_strtrim_null);
 }
 
 ////////////////////////////////
@@ -6652,7 +6652,7 @@ void            test_ft_split(void) {
 	add_fun_subtest(test_ft_split_free);
 	add_fun_subtest(test_ft_split_malloc_null);
 	add_fun_subtest(test_ft_split_zero);
-	add_fun_subtest(test_ft_split_null);
+	//add_fun_subtest(test_ft_split_null);
 }
 
 ////////////////////////////////
@@ -7001,7 +7001,7 @@ void            test_ft_putstr(void){
 	add_fun_subtest(test_ft_putstr_basic);
 	add_fun_subtest(test_ft_putstr_ascii);
 //	add_fun_subtest(test_ft_putstr_unicode);
-	add_fun_subtest(test_ft_putstr_null);
+//	add_fun_subtest(test_ft_putstr_null);
 }
 
 ////////////////////////////////
@@ -7088,7 +7088,7 @@ void            test_ft_putendl(void){
 	add_fun_subtest(test_ft_putendl_basic);
 	add_fun_subtest(test_ft_putendl_ascii);
 //	add_fun_subtest(test_ft_putendl_unicode);
-	add_fun_subtest(test_ft_putendl_null);
+//	add_fun_subtest(test_ft_putendl_null);
 }
 
 ////////////////////////////////
@@ -7341,7 +7341,7 @@ void            test_ft_putstr_fd(void){
 	add_fun_subtest(test_ft_putstr_fd_basic);
 	add_fun_subtest(test_ft_putstr_fd_ascii);
 //	add_fun_subtest(test_ft_putstr_fd_unicode);
-	add_fun_subtest(test_ft_putstr_fd_null);
+	//add_fun_subtest(test_ft_putstr_fd_null);
 }
 
 ////////////////////////////////
@@ -7428,7 +7428,7 @@ void            test_ft_putendl_fd(void){
 	add_fun_subtest(test_ft_putendl_fd_basic);
 	add_fun_subtest(test_ft_putendl_fd_ascii);
 //	add_fun_subtest(test_ft_putendl_fd_unicode);
-	add_fun_subtest(test_ft_putendl_fd_null);
+	//add_fun_subtest(test_ft_putendl_fd_null);
 }
 
 
@@ -7934,7 +7934,7 @@ void			test_ft_lstsize_basic(void *ptr) {
 			t_list	*l;
 			int actual;
 			int expected;
-	
+
 			l = lstnew(strdup("1"));
 			l->next = lstnew(strdup("2"));
 			l->next->next = lstnew(strdup("3"));
@@ -7955,7 +7955,7 @@ void			test_ft_lstsize_null(void *ptr) {
 			t_list	*l = NULL;
 			int actual;
 			int expected = 0;
-	
+
 			actual = ft_lstsize(l);
 			if (actual == expected)
 				exit(TEST_SUCCESS);
@@ -7981,7 +7981,7 @@ void			test_ft_lstlast_basic(void *ptr) {
 			t_list	*l;
 			t_list	*expected;
 			t_list	*actual;
-	
+
 			l = lstnew(strdup("1"));
 			l->next = lstnew(strdup("2"));
 			l->next->next = lstnew(strdup("3"));
@@ -8058,7 +8058,7 @@ void			test_ft_lstiter_null(void *ptr) {
 
 void			test_ft_lstiter(void){
 	add_fun_subtest(test_ft_lstiter_basic);
-	add_fun_subtest(test_ft_lstiter_null);
+	//add_fun_subtest(test_ft_lstiter_null);
 }
 
 ////////////////////////////////
@@ -8119,7 +8119,7 @@ void			test_ft_lstmap_malloc_null(void *ptr) {
 
 void			test_ft_lstmap(void){
 	add_fun_subtest(test_ft_lstmap_basic);
-	add_fun_subtest(test_ft_lstmap_null);
+//	add_fun_subtest(test_ft_lstmap_null);
 //	add_fun_subtest(test_ft_lstmap_malloc_null);
 }
 

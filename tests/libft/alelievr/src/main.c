@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelievr <alelievr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/13 19:59:29 by alelievr          #+#    #+#             */
-/*   Updated: 2019/10/20 11:01:10 by juligonz         ###   ########.fr       */
+/*   Updated: 2022/01/24 19:34:32 by fsoares-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,6 @@ void	run_subtests(void *h, int start) {
 	}
 	current_fun_name = "";
 	display_test_result(TEST_FINISHED, "");
-	printf("\nSee %s for more informations !\n", LOG_FILE);
 	dprintf(g_log_fd, "\n");
 	close(g_log_fd);
 	exit(0);

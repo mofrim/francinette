@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_test_result.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelievr <alelievr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created  2015/11/13 20:26:54 by alelievr          #+#    #+#             */
-/*   Updated  2015/12/23 20:28:34 by alelievr         ###   ########.fr       */
+/*   Created: 2015/11/13 20:26:54 by alelievr          #+#    #+#             */
+/*   Updated: 2022/01/24 19:43:51 by fsoares-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,39 +264,6 @@ static char	*verbose_color(int type) {
 static void	display_part(void) {
 	static int last_part = -2;
 
-	if (last_part != current_part && current_part == 1) {
-		if (!g_nospeed)
-			printf(COLOR_CLEAR"speed scale: > x10:"COLOR_SPEED_10"\u25CF"COLOR_CLEAR
-					" > x5:"COLOR_SPEED_5"\u25CF"COLOR_CLEAR
-					" > x2:"COLOR_SPEED_2"\u25CF"COLOR_CLEAR
-					" > x1:"COLOR_SPEED_1"\u25CF"COLOR_CLEAR
-					" > x0.5:"COLOR_SPEED_05"\u25CF"COLOR_CLEAR
-					" < x0.5:"COLOR_SPEED_0"\u25CF"COLOR_CLEAR
-					"\n");
-		printf(COLOR_PART1"                      First part\n");
-		printf("%s\n", ".-\"-.     .-\"-.     .-\"-.     .-\"-.     .-\"-.     .-\"-.\n"
-				"     \"-.-\"     \"-.-\"     \"-.-\"     \"-.-\"     \"-.-\"    "COLOR_CLEAR);
-	}
-
-	if (last_part != current_part && current_part == 2) {
-		printf(COLOR_INFO"\n%s"COLOR_CLEAR, "In this part, you can choose to protect "
-				"your function or not to,\na color code will tell you if your "
-				"function is protected/not BUT stay coherent !\n"COLOR_PROTECTED"[\U0001F6E1 ]"COLOR_INFO
-				" --> protected\n"COLOR_NPROTECTED"[\U0001F4A5 ]"COLOR_INFO" --> not protected"COLOR_CLEAR);
-		printf(COLOR_PART2"\n                     Second part\n");
-		printf("%s\n", " __)(__  __)(__  __)(__  __)(__  __)(__  __)(__  __)(__  __)\n"
-				"(______)(______)(______)(______)(______)(______)(______)(___\n");
-	}
-
-	if (last_part != current_part && current_part == 3) {
-		printf(COLOR_PART3"\n%s\n",
-			    " /~~~\\/~~\\/~~~\\/~~~\\/~~\\/~~~\\                    /~~~\\/~~\\/~~~\\/~~~\\/~~\\/~~~\\\n"
-				" | /\\/ /\\/ /\\ || /\\/ /\\/ /\\ |                    | /\\ \\/\\ \\/\\ || /\\ \\/\\ \\/\\ |\n"
-				"  \\ \\/ /\\/ /\\/ /\\ \\/ /\\/ /\\/ /     Bonus part     \\ \\/\\ \\/\\ \\/ /\\ \\/\\ \\/\\ \\/ /\n"
-				"   \\ \\/\\ \\/\\ \\/  \\ \\/\\ \\/\\ \\/                      \\/ /\\/ /\\/ /  \\/ /\\/ /\\/ /\n"
-				",_/\\ \\/\\ \\/\\ \\__/\\ \\/\\ \\/\\ \\______________________/ /\\/ /\\/ /\\__/ /\\/ /\\/ /\\_,\n"
-				"(__/\\__/\\__/\\____/\\__/\\__/\\________________________/\\__/\\__/\\____/\\__/\\__/\\__)\n");
-	}
 
 	//bench mode header
 	if (last_part == -2 && (g_bench || g_versus))
@@ -539,9 +506,9 @@ void    display_test_result(int value, char *explanations)
 		display_part();
 		if (g_bench == 0 && g_versus == NULL)
 		{
-			printf(COLOR_CLEAR"%s:%*s"COLOR_CLEAR,
+			printf(COLOR_CLEAR"%-*s : %s"COLOR_CLEAR,
+					15,
 					current_fun_name,
-					14 - (int)strlen(current_fun_name),
 					"");
 			dprintf(g_log_fd, "%s:%*s", current_fun_name, 14 - (int)strlen(current_fun_name), "");
 		}
