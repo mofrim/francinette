@@ -6,7 +6,7 @@ source "${PATH_TEST}"/srcs/variables.sh
 
 OPT_FULL_MAKEFILE=1
 
-if [ $4 == "-l" ]
+if [[ $4 == "-l" ]]
 then
 	OPT_NO_LIBRARY=1
 fi
@@ -21,11 +21,8 @@ cd "${PATH_TEST}"
 source "${PATH_TEST}"/my_config.sh
 
 mkdir "${PATH_TEST}"/dirlibft
-mkdir "${PATH_TEST}"/dirlibft/${SRC_DIR}
-mkdir "${PATH_TEST}"/dirlibft/${HEADER_DIR}
-cp "${PATH_LIBFT}"/* "${PATH_TEST}"/dirlibft
-cp "${PATH_LIBFT}"/${SRC_DIR}/*.c "${PATH_TEST}"/dirlibft/${SRC_DIR}
-cp "${PATH_LIBFT}"/${HEADER_DIR}/*.h "${PATH_TEST}"/dirlibft/${HEADER_DIR}
+orig_path="$(python -c "import os,sys; print(os.path.abspath(sys.argv[1]))" "..")"
+cp -r "${PATH_LIBFT}" "${PATH_TEST}"/dirlibft
 PATH_LIBFT="${PATH_TEST}"/dirlibft
 
 init_deepthought()
@@ -69,6 +66,8 @@ if [ -e "${PATH_LIBFT}/${HEADER_DIR}/libft.h" ]
 then
 	cp "${PATH_LIBFT}/${HEADER_DIR}/libft.h" "${PATH_TEST}"
 fi
+
+cp "$orig_path/libft.a" "${PATH_TEST}"/dirlibft
 
 execute_test() {
 	function=$1
