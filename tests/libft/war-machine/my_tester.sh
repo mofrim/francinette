@@ -127,5 +127,3 @@ for value in $3
 do
 	execute_test "ft_$value.c"
 done
-
-printf "\nA deepthought file has been generated in ${COLOR_DEEPTHOUGHT_PATH}\"${PATH_DEEPTHOUGHT}\"\n${DEFAULT}"
