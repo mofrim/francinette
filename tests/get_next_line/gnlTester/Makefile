@@ -68,15 +68,12 @@ $(10MMBONUS): m10M%:
 	@gcc -D BUFFER_SIZE=10000000 $(CFLAGS) -c $(BONUS_FILES)
 	@clang++ -D BUFFER_SIZE=10000000 -D TIMEOUT_US=$(TIMEOUT_US) $(CPPFLAGS) $(UTILS) $(TESTS_PATH)$(MANDATORY).cpp $(BONUS_OBJS) -o gnlTest && $(VALGRIND) ./gnlTest < files/alternate_line_nl_with_nl && rm -f gnlTest
 
-mandatory_start: update
+mandatory_start:
 	@tput setaf 4 && echo [Mandatory]
 
-bonus_start: update
+bonus_start:
 	@tput setaf 3 && printf "[Static = " && cat ../*bonus.c | grep -E 'static.*;' | wc -l | tr -d '\n' | xargs /bin/echo -n && printf "]\n"
 	@tput setaf 5 && /bin/echo [Bonus]
-
-update:
-	@git pull
 
 dockerm dockerb dockera: docker%:
 	@docker rm -f mc > /dev/null 2>&1 || true
