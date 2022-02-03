@@ -5,7 +5,11 @@
 ###################################
 
 #Edit the next line with the path of your libft project.
-PATH_LIBFT="../__my_srcs/"
+if [ "$(uname)" != "Darwin" ]; then
+	PATH_LIBFT="../__my_srcs/."
+else
+	PATH_LIBFT="../__my_srcs/"
+fi
 
 #If you use a relative path, don't put double quotes.
 #For example :
