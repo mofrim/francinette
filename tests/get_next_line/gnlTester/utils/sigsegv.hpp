@@ -9,5 +9,6 @@
 using namespace std;
 
 void sigsegv(int signal);
+void sigalarm(int signal);
 
 #endif
