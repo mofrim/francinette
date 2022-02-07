@@ -5,14 +5,24 @@ extern int iTest;
 
 void sigsegv(int signal)
 {
-	(void)signal;
 	cout << FG_LYELLOW << iTest++ << ".SIGSEGV";
-	exit(EXIT_SUCCESS);
+	exit(signal);
 }
 
 void sigalarm(int signal)
 {
-	(void)signal;
 	cout << FG_LYELLOW << iTest++ << ".TIMEOUT";
-	exit(EXIT_SUCCESS);
+	exit(signal);
+}
+
+void sigabort(int signal)
+{
+	cout << FG_LYELLOW << iTest++ << ".ABORT";
+	exit(signal);
+}
+
+void sigbus(int signal)
+{
+	cout << FG_LYELLOW << iTest++ << ".BUS_ERROR";
+	exit(signal);
 }

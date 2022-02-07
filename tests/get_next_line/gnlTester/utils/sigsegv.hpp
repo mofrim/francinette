@@ -10,5 +10,7 @@ using namespace std;
 
 void sigsegv(int signal);
 void sigalarm(int signal);
+void sigabort(int signal);
+void sigbus(int signal);
 
 #endif

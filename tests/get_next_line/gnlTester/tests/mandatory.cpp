@@ -19,7 +19,10 @@ int iTest = 1;
 int main(void)
 {
 	signal(SIGALRM, sigalarm);
-	signal(SIGSEGV, sigsegv); int fd;
+	signal(SIGSEGV, sigsegv);
+	signal(SIGABRT, sigabort);
+	signal(SIGBUS, sigbus);
+	int fd;
 	title("[BUFFER_SIZE = " << BUFFER_SIZE << "]: " << ENDL)
 	title("Invalid fd: ")
 	fd = open("files/empty", O_RDWR);
