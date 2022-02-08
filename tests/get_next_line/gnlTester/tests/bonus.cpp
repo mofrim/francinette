@@ -18,9 +18,14 @@ extern "C"
 int iTest = 1;
 int main(void)
 {
-	signal(SIGSEGV, sigsegv); int fd[4];
+	signal(SIGALRM, sigalarm);
+	signal(SIGSEGV, sigsegv);
+	signal(SIGABRT, sigabort);
+	signal(SIGBUS, sigbus);
+	int fd[4];
+	alarm(TIMEOUT_US / 1000000);
 	title("[BUFFER_SIZE = " << BUFFER_SIZE << "]: " << ENDL)
-	
+
 	title("multiple fd: ")
 	fd[0] = open("files/41_with_nl", O_RDWR);
 	/* 1 */ gnl(1000, NULL);

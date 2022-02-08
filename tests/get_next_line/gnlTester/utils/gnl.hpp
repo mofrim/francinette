@@ -12,6 +12,7 @@
 			alarm(TIMEOUT_US / 1000000); \
 			x;                           \
 			showLeaks();                 \
+			cout << ENDL;                \
 			exit(EXIT_SUCCESS);          \
 		}                                \
 		else                             \
