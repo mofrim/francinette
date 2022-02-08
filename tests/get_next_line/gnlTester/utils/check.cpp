@@ -13,7 +13,7 @@ void check(bool succes)
 
 void mcheck(void * p, size_t required_size)
 {
-	void * p2 = malloc(required_size); 
+	void * p2 = malloc(required_size);
 	#ifdef __unix__
 	if (malloc_usable_size(p) == malloc_usable_size(p2))
 	#endif
