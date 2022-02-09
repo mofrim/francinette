@@ -17,7 +17,7 @@
 #define title(s)                                     \
 	{                                                \
 		signal(SIGALRM, sigalarm);                   \
-		alarm(5);                                    \
+		alarm(TIMEOUT);                              \
 		std::ostringstream ss;                       \
 		ss << FG_LGRAY << s;                         \
 		write(1, ss.str().c_str(), ss.str().size()); \
