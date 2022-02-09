@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 14:26:40 by lmartin           #+#    #+#             */
-/*   Updated: 2021/02/04 07:55:42 by lmartin          ###   ########.fr       */
+/*   Updated: 2022/02/09 18:31:05 by fsoares-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int main(int argc, const char *argv[])
 	elem2 = ft_lstnewone(str2);
 	elem3 = ft_lstnewone(str3);
 	elem4 = ft_lstnewone(str4);
-	alarm(5);
+	alarm(TIMEOUT);
 	if (argc == 1 || !elem || !elem2 || !elem3 || !elem4)
 		return (0);
 	else if (atoi(argv[1]) == 1)

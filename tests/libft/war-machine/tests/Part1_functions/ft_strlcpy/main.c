@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtoty <jtoty@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 15:28:06 by jtoty             #+#    #+#             */
-/*   Updated: 2017/03/09 16:01:34 by jtoty            ###   ########.fr       */
+/*   Updated: 2022/02/09 18:31:05 by fsoares-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		main(int argc, const char *argv[])
 	char	*dest;
 	int		arg;
 
-	alarm(5);
+	alarm(TIMEOUT);
 	if (!(dest = (char *)malloc(sizeof(*dest) * 15)) || argc == 1)
 		return (0);
 	memset(dest, 0, 15);

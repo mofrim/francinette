@@ -5,10 +5,12 @@ exec 2> errors.log
 source "${PATH_TEST}"/srcs/variables.sh
 
 OPT_FULL_MAKEFILE=1
+TIMEOUT=$4
 
 if [[ $4 == "-l" ]]
 then
 	OPT_NO_LIBRARY=1
+	TIMEOUT=$5
 fi
 
 source "${PATH_TEST}"/srcs/colors.sh

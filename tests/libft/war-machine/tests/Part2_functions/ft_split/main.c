@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtoty <jtoty@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 12:34:58 by jtoty             #+#    #+#             */
-/*   Updated: 2021/02/06 12:06:03 by lmartin          ###   ########.fr       */
+/*   Updated: 2022/02/09 18:31:05 by fsoares-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		main(int argc, const char *argv[])
 	int		i;
 	int		arg;
 
-	alarm(5);
+	alarm(TIMEOUT);
 	if (argc == 1)
 		return (0);
 	i = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtoty <jtoty@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 15:16:21 by jtoty             #+#    #+#             */
-/*   Updated: 2021/02/04 07:58:38 by lmartin          ###   ########.fr       */
+/*   Updated: 2022/02/09 18:31:05 by fsoares-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int main(int argc, const char *argv[])
 	elem2 = ft_lstnewone(str2);
 	elem3 = ft_lstnewone(str3);
 	elem4 = ft_lstnewone(str4);
-	alarm(5);
+	alarm(TIMEOUT);
 	if (argc == 1 || !elem || !elem2 || !elem3 || !elem4)
 		return (0);
 	elem->next = elem2;
