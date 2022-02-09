@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_test.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelievr <alelievr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created  2015/11/13 20:23:36 by alelievr          #+#    #+#             */
-/*   Updated: 2019/10/20 11:01:59 by juligonz         ###   ########.fr       */
+/*   Created: 2015/11/13 20:23:36 by alelievr          #+#    #+#             */
+/*   Updated: 2022/02/09 17:39:44 by fsoares-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,9 @@ enum		e_prot {
 # define	BSIZE			0xF00
 # define	BFSIZE			0xF0000
 # define	SUBTEST_SIZE	0xF00
-# define	TIMEOUT_MILLIS	1500
+# ifndef	TIMEOUT_MILLIS
+#  define	TIMEOUT_MILLIS	1500
+# endif
 
 # define	SET_EXPLANATION(x)	current_explication = x;
 # define	SET_TEST_TEXT(x)	current_test = x;

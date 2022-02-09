@@ -6,7 +6,7 @@
 #    By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/04/04 19:22:36 by alelievr          #+#    #+#              #
-#    Updated: 2022/01/24 18:12:32 by fsoares-         ###   ########.fr        #
+#    Updated: 2022/02/09 17:39:29 by fsoares-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ WRAPNAME	=	run_test
 FRAMEWORK	=
 
 #	Compiler
-CFLAGS		=	-Werror -Wall -Wextra# -g3 -fsanitize=address
+CFLAGS		=	-D TIMEOUT_MILLIS=$(TIMEOUT) -Werror -Wall -Wextra# -g3 -fsanitize=address
 CSOFLAGS	=	-shared -fPIC
 CSOFLAGS2	=
 CC			=	clang
@@ -97,7 +97,6 @@ NORM_COLOR_ERR	=	160
 NORM_COLOR_WAR	=	214
 RUNT_COLR_T		=	7
 RUN_COLOR		=	147
-
 
 #################
 ##    AUTO     ##
