@@ -8,7 +8,7 @@
 		int test = fork();                                            \
 		if (test == 0)                                                \
 		{                                                             \
-			alarm(10 * TIMEOUT_US / 1000000);                         \
+			alarm(TIMEOUT_US / 1000000);                              \
 			x;                                                        \
 			showLeaks();                                              \
 			cout << ENDL;                                             \
