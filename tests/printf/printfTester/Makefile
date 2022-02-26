@@ -5,6 +5,7 @@ SHELL			= bash
 
 UTILS_PATH		= utils/
 UTILS			= $(addprefix $(UTILS_PATH), sigsegv.cpp color.cpp check.cpp leaks.cpp)
+UTILS_O			= $(UTILS:.cpp=.o)
 
 TESTS_PATH		= tests/
 MANDATORY		= c s p d i u x upperx percent mix
@@ -22,11 +23,14 @@ ifeq ($(UNAME), Linux)
     VALGRIND = valgrind -q --leak-check=full --track-origins=yes
 endif
 
-$(MANDATORY): %: mandatory_start
-	@$(CC) $(CFLAGS) -D TIMEOUT_US=$(TIMEOUT_US) $(UTILS) $(TESTS_PATH)$*_test.cpp -L.. -lftprintf -o $*_test && $(VALGRIND) ./$*_test $(TEST_NUMBER) && rm -f $*_test
+utils/%.o: utils/%.cpp
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(BONUS): %: bonus_start
-	@$(CC) $(CFLAGS) -D TIMEOUT_US=$(TIMEOUT_US) $(UTILS) $(TESTS_PATH)$*_test.cpp -L.. -lftprintf -o $*_test && $(VALGRIND) ./$*_test $(TEST_NUMBER) && rm -f $*_test
+$(MANDATORY): %: mandatory_start $(UTILS_O)
+	@$(CC) $(CFLAGS) -D TIMEOUT_US=$(TIMEOUT_US) $(UTILS_O) $(TESTS_PATH)$*_test.cpp -L.. -lftprintf -o $*_test && $(VALGRIND) ./$*_test $(TEST_NUMBER) && rm -f $*_test
+
+$(BONUS): %: bonus_start $(UTILS_O)
+	@$(CC) $(CFLAGS) -D TIMEOUT_US=$(TIMEOUT_US) $(UTILS_O) $(TESTS_PATH)$*_test.cpp -L.. -lftprintf -o $*_test && $(VALGRIND) ./$*_test $(TEST_NUMBER) && rm -f $*_test
 
 mandatory_start: checkmakefile
 	@tput setaf 6
@@ -53,9 +57,9 @@ b: $(BONUS)
 a: m b
 
 clean:
-	make clean -C .. && rm -rf *_test && rm -rf *_test.dSYM
+	make clean -C .. && rm -rf *_test && rm -rf *_test.dSYM && rm -rf *.o && rm -rf utils/*.o
 
 fclean:
-	make fclean -C .. && rm -rf *_test && rm -rf *_test.dSYM
+	make fclean -C .. && rm -rf *_test && rm -rf *_test.dSYM && rm -rf *.o && rm -rf utils/*.o
 
 .PHONY:	mandatory_start m bonus_start b a clean fclean

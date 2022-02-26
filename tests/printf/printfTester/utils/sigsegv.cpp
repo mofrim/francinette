@@ -9,7 +9,7 @@ extern bool showTest;
 extern int pipeOut;
 extern int stdOut;
 
-void handle_sig(char *message)
+void handle_sig(string message)
 {
 	dup2(stdOut, 1);
 	if (showTest)
