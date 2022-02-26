@@ -8,6 +8,6 @@
 
 using namespace std;
 
-void sigsegv(int signal);
+void handle_signals();
 
 #endif

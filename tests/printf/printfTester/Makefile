@@ -28,18 +28,15 @@ $(MANDATORY): %: mandatory_start
 $(BONUS): %: bonus_start
 	@$(CC) $(CFLAGS) -D TIMEOUT_US=$(TIMEOUT_US) $(UTILS) $(TESTS_PATH)$*_test.cpp -L.. -lftprintf -o $*_test && $(VALGRIND) ./$*_test $(TEST_NUMBER) && rm -f $*_test
 
-mandatory_start: update checkmakefile
+mandatory_start: checkmakefile
 	@tput setaf 6
-	@make -C ..
+	@make -s -C ..
 	@tput setaf 4 && echo [Mandatory]
 
-bonus_start: update checkmakefile
+bonus_start: checkmakefile
 	@tput setaf 6
-	@make bonus -C ..
+	@make bonus -s -C ..
 	@tput setaf 5 && echo [Bonus]
-
-update:
-	@git pull
 
 checkmakefile:
 	@ls .. | grep Makefile > /dev/null 2>&1 || (tput setaf 1 && echo Makefile not found. && exit 1)
@@ -51,9 +48,9 @@ $(addprefix docker, $(MANDATORY)) $(addprefix docker, $(BONUS)) dockerm dockerb 
 	docker exec -ti mc make $* $(TEST_NUMBER) -C printfTester
 	@docker rm -f mc > /dev/null 2>&1
 
-m: $(MANDATORY) 
+m: $(MANDATORY)
 b: $(BONUS)
-a: m b 
+a: m b
 
 clean:
 	make clean -C .. && rm -rf *_test && rm -rf *_test.dSYM
@@ -61,4 +58,4 @@ clean:
 fclean:
 	make fclean -C .. && rm -rf *_test && rm -rf *_test.dSYM
 
-.PHONY:	mandatory_start m bonus_start b a clean update fclean
+.PHONY:	mandatory_start m bonus_start b a clean fclean

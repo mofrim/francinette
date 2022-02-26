@@ -18,7 +18,7 @@ bool showTest = false;
 int main(int ac, char ** av)
 {
 	char *s2 = "Mussum Ipsum, cacilds vidis litro abertis. Posuere libero varius. Nullam a nisl ut ante blandit hendrerit. Aenean sit amet nisi. Atirei o pau no gatis, per gatis num morreus.";
-	signal(SIGSEGV, sigsegv);
+	handle_signals();
 	cout << FG_LYELLOW << "category: s" << RESET_ALL;
 
 	testName = av[0];
