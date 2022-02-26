@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alelievr <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/07/15 15:13:38 by alelievr          #+#    #+#              #
-#    Updated: 2018/02/16 19:10:35 by alelievr         ###   ########.fr        #
+#    Updated: 2022/02/26 17:23:20 by fsoares-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRC			=	main.cpp				\
 OBJDIR		=	obj
 
 #	Printf library directory
-PRINTFDIR	=	../ft_printf/
+PRINTFDIR	=	../__my_srcs/
 
 #	Variables
 LIBFT		=	2	#1 or 0 to include the libft / 2 for autodetct
@@ -40,8 +40,8 @@ CPPVERSION	=	c++11
 INCDIRS		=	inc
 
 #	Libraries
-LIBDIRS		=	
-LDLIBS		=	
+LIBDIRS		=
+LDLIBS		=
 
 #	Spec
 FINAL_PRINTF_LIB	= printf-tests.so
@@ -65,7 +65,7 @@ OPTFLAGS1	=	-funroll-loops -O2
 OPTFLAGS2	=	-pipe -funroll-loops -Ofast
 
 #	Framework
-FRAMEWORK	=	
+FRAMEWORK	=
 
 #################
 ##  COLORS     ##
@@ -92,15 +92,15 @@ CNORM_OK	=	"231m"
 
 OS			:=	$(shell uname -s)
 PROC		:=	$(shell uname -p)
-DEBUGFLAGS	=	
-LINKDEBUG	=	
-OPTFLAGS	=	
-#COMPILATION	=	
+DEBUGFLAGS	=
+LINKDEBUG	=
+OPTFLAGS	=
+#COMPILATION	=
 
 ifeq "$(OS)" "Windows_NT"
 endif
 ifeq "$(OS)" "Linux"
-	LDLIBS		+= 
+	LDLIBS		+=
 	DEBUGFLAGS	+= " -fsanitize=memory -fsanitize-memory-use-after-dtor -fsanitize=thread"
 endif
 ifeq "$(OS)" "Darwin"
@@ -145,11 +145,11 @@ ifneq ($(filter 2,$(strip $(DEBUGLEVEL)) ${DEBUG}),)
 endif
 
 ifneq ($(filter 1,$(strip $(OPTLEVEL)) ${OPTI}),)
-	DEBUGFLAGS = 
+	DEBUGFLAGS =
 	OPTFLAGS = $(OPTFLAGS1)
 endif
 ifneq ($(filter 2,$(strip $(OPTLEVEL)) ${OPTI}),)
-	DEBUGFLAGS = 
+	DEBUGFLAGS =
 	OPTFLAGS = $(OPTFLAGS1) $(OPTFLAGS2)
 endif
 
@@ -162,7 +162,7 @@ ifneq ($(filter %.cpp,$(SRC)),)
 endif
 
 ifdef ${NOWERROR}
-	WERROR = 
+	WERROR =
 endif
 
 ifeq "$(strip $(LIBFT))" "2"
@@ -224,7 +224,7 @@ printf:
 	@mkdir -p $(TMP_LIB_FTPRINTF)
 	@$(call color_exec,$(CLINK_T),$(CLINK),"Creating libftprintf.so lib",\
 		cd $(TMP_LIB_FTPRINTF) && ar -xv ../$(LIB_FTPRINTF) >/dev/null && $(CC) -shared -fPIC *.o -o $(LIB_FTPRINTF_SO) && cp $(LIB_FTPRINTF_SO) ../..)
-	
+
 #	All removing then compiling
 re: fclean all
 
