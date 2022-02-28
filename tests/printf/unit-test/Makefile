@@ -6,7 +6,7 @@
 #    By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/07/15 15:13:38 by alelievr          #+#    #+#              #
-#    Updated: 2022/02/26 17:23:20 by fsoares-         ###   ########.fr        #
+#    Updated: 2022/02/28 20:37:00 by fsoares-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -184,24 +184,20 @@ all: $(NAME) printf
 $(NAME): $(OBJ)
 	@$(if $(findstring lft,$(LDLIBS)),$(call color_exec_t,$(CCLEAR),$(CCLEAR),\
 		make -j 4 -C libft))
-	@$(call color_exec,$(CLINK_T),$(CLINK),"Link of $(NAME):",\
-		$(LINKER) $(WERROR) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(OPTFLAGS) $(DEBUGFLAGS) $(LINKDEBUG) $(VFRAME) -o $@ $^)
+	@$(LINKER) $(WERROR) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(OPTFLAGS) $(DEBUGFLAGS) $(LINKDEBUG) $(VFRAME) -o $@ $^
 
 $(OBJDIR)/%.o: %.cpp $(INCFILES)
 	@mkdir -p $(OBJDIR)/$(dir $<)
-	@$(call color_exec,$(COBJ_T),$(COBJ),"Object: $@",\
-		$(CXX) -std=$(CPPVERSION) $(WERROR) $(CFLAGS) $(OPTFLAGS) $(DEBUGFLAGS) $(CPPFLAGS) -o $@ -c $<)
+	@$(CXX) -std=$(CPPVERSION) $(WERROR) $(CFLAGS) $(OPTFLAGS) $(DEBUGFLAGS) $(CPPFLAGS) -o $@ -c $<
 
 #	Objects compilation
 $(OBJDIR)/%.o: %.c $(INCFILES)
 	@mkdir -p $(OBJDIR)/$(dir $<)
-	@$(call color_exec,$(COBJ_T),$(COBJ),"Object: $@",\
-		$(CC) $(WERROR) $(CFLAGS) $(OPTFLAGS) $(DEBUGFLAGS) $(CPPFLAGS) -o $@ -c $<)
+	@$(CC) $(WERROR) $(CFLAGS) $(OPTFLAGS) $(DEBUGFLAGS) $(CPPFLAGS) -o $@ -c $<
 
 $(OBJDIR)/%.o: %.s
 	@mkdir -p $(OBJDIR)/$(dir $<)
-	@$(call color_exec,$(COBJ_T),$(COBJ),"Object: $@",\
-		$(NASM) -f macho64 -o $@ $<)
+	@$(NASM) -f macho64 -o $@ $<
 
 #	Removing objects
 clean:
@@ -218,12 +214,11 @@ fclean: clean
 
 printf:
 	@mkdir -p $(ASSETS_DIR)
-	@make -C "$(PRINTFDIR)"
+	@make -s -C "$(PRINTFDIR)" > /dev/null
 	@cp "$(PRINTFDIR)"/$(LIB_FTPRINTF) $(ASSETS_DIR)
 	@rm -rf $(TMP_LIB_FTPRINTF)
 	@mkdir -p $(TMP_LIB_FTPRINTF)
-	@$(call color_exec,$(CLINK_T),$(CLINK),"Creating libftprintf.so lib",\
-		cd $(TMP_LIB_FTPRINTF) && ar -xv ../$(LIB_FTPRINTF) >/dev/null && $(CC) -shared -fPIC *.o -o $(LIB_FTPRINTF_SO) && cp $(LIB_FTPRINTF_SO) ../..)
+	@cd $(TMP_LIB_FTPRINTF) && ar -xv ../$(LIB_FTPRINTF) >/dev/null && $(CC) -shared -fPIC *.o -o $(LIB_FTPRINTF_SO) && cp $(LIB_FTPRINTF_SO) ../..
 
 #	All removing then compiling
 re: fclean all
