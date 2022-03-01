@@ -60,10 +60,10 @@ class Generator:
         self.flags_max = options["flags_max"]
         self.str_max_len = options["str_max"]
         self.width_max = 200
-        self.width_wildcard_rate = 10
+        self.width_wildcard_rate = 0
         self.width_empty_rate = 2
         self.precision_max = 200
-        self.precision_wildcard_rate = 10
+        self.precision_wildcard_rate = 0
         self.precision_empty_rate = 2
         self.precision_point_rate = 4
         self.possible_conv = "diuxXcsp%"
@@ -118,7 +118,7 @@ class Generator:
         return formats, args
 
     def _fmt(self, conv):
-        return "%" + self._flags(conv) + self._width() + self._precision(conv) + conv
+        return "%" + self._flags(conv) + self._width(conv) + self._precision(conv) + conv
 
     def _arg(self, conv):
         return {
@@ -158,7 +158,9 @@ class Generator:
             flags = flags.replace(" ", "")
         return flags
 
-    def _width(self):
+    def _width(self, conv):
+        if conv == '%':
+            return ""
         p = randrange(100)
         if p < self.width_wildcard_rate:
             return "*"
@@ -168,7 +170,7 @@ class Generator:
         return str(randrange(1, self.width_max))
 
     def _precision(self, conv):
-        if conv == "p" or conv == "c":
+        if conv == "p" or conv == "c" or conv == '%':
             return ""
         p = randrange(100)
         if p < self.precision_wildcard_rate:

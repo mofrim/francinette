@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printf_tester_tests.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:15:31 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/28 15:36:08 by cacharle         ###   ########.fr       */
+/*   Updated: 2022/02/28 21:31:27 by fsoares-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void test_printf_tester(void)
 	ASSERT_PRINTF("p36 %.0u\n", 0);
 	ASSERT_PRINTF("%%\n");
 	ASSERT_PRINTF("Hello 42 school! %s", NULL);
-	ASSERT_PRINTF("%010%");
+	//ASSERT_PRINTF("%010%");
 //	ASSERT_PRINTF("%u", 4294967295);
 	ASSERT_PRINTF("%d\n", 2147483647);
 //	ASSERT_PRINTF("%d\n", -2147483648);
@@ -77,7 +77,7 @@ void test_printf_tester(void)
 	ASSERT_PRINTF("%-10x\n", 50);
 	ASSERT_PRINTF("%-15x\n", 0);
 	ASSERT_PRINTF("%.1x\n", 500);
-	ASSERT_PRINTF("%*.*x\n", 50, 10, 2);
+//	ASSERT_PRINTF("%*.*x\n", 50, 10, 2);
 	ASSERT_PRINTF("%x\n", -1);
 //	ASSERT_PRINTF("%");
 	ASSERT_PRINTF("%40.50d\n", 50);
@@ -131,7 +131,7 @@ void test_printf_tester(void)
 	ASSERT_PRINTF("t3 %50.0d\n", 10);
 	ASSERT_PRINTF("t4 %50.50d\n", 10);
 	ASSERT_PRINTF("t5 %50.10d\n", 10);
-	ASSERT_PRINTF("t6 %*.*d\n", 50,  5, 10);
+	//ASSERT_PRINTF("t6 %*.*d\n", 50,  5, 10);
 	ASSERT_PRINTF("t7 %1.50d\n", -10);
 	ASSERT_PRINTF("t8 %1.50d\n", 10);
 	ASSERT_PRINTF("t9 %2.2d\n", 10);
@@ -214,7 +214,7 @@ void test_printf_tester(void)
 	/* ASSERT_PRINTF("30 This is a float : %.0f\n\n", 0.0); */
 	ASSERT_PRINTF("31 This is an int : %.0d\n\n", 0);
 	ASSERT_PRINTF("32 This is an int : %0d\n\n", 0);
-	ASSERT_PRINTF("percent 1 %012%");
+	//ASSERT_PRINTF("percent 1 %012%");
 	ASSERT_PRINTF("percent 2 %12%");
 	ASSERT_PRINTF("percent 3 %-12%");
 	ASSERT_PRINTF("percent 4 %0%");
@@ -222,7 +222,7 @@ void test_printf_tester(void)
 	ASSERT_PRINTF("percent 5 % %");
 	ASSERT_PRINTF("percent 6 % 15%");
 	ASSERT_PRINTF("percent 7 % 12%");
-	ASSERT_PRINTF("percent 8 %  *%", 13);
+	//ASSERT_PRINTF("percent 8 %  *%", 13);
 	ASSERT_PRINTF("%n", &t);
 	ASSERT_PRINTF("test %n", &t);
 	ASSERT_PRINTF("%s %n", "hello world", &t);
@@ -247,62 +247,46 @@ void test_printf_tester(void)
 	/* ASSERT_PRINTF("%d\n\n", printf("5string 1 %0s string 2 %0s\n\n", "toto", "bonjour")); */
 	/* ASSERT_PRINTF("%d\n\n", printf("6string 1 %012s string 2 %012s\n\n", "toto", "bonjour")); */
 	/* ASSERT_PRINTF("%d\n\n", printf("7string 1 %-012s string 2 %012s\n\n", "toto", "bonjour")); */
-	ASSERT_PRINTF("st1 %*.*d\n", 10, 10, 50);
-	ASSERT_PRINTF("st2 %*.*d\n", 1, 50, 50);
-	ASSERT_PRINTF("st3 %*.*d\n", 0, 0, 50);
-	ASSERT_PRINTF("st4 %*.*d\n", 0, 50, 50);
-	ASSERT_PRINTF("st5 %*.*d\n", 10, 0, 50);
-	ASSERT_PRINTF("st6 %*.*d\n", 10, 10, 50);
-	ASSERT_PRINTF("st12 %*d\n", 10, 50);
-	ASSERT_PRINTF("st13 %*d\n", 0, 0);
-	ASSERT_PRINTF("st14 %.*d\n", 0, 0);
-	ASSERT_PRINTF("st15 %*d\n", 50, 5);
-	ASSERT_PRINTF("st16 %0.*d\n", 50, 5);
-	ASSERT_PRINTF("st17 %0.*d\n", 0, 0);
-	ASSERT_PRINTF("st7 %*.*s\n", 1, 50, "hey");
-	ASSERT_PRINTF("st8 %*.*s\n", 0, 0, "coucou");
-	ASSERT_PRINTF("st9 %*.*s\n", 0, 50, "hey");
-	ASSERT_PRINTF("st10 %*.*s\n", 10, 0, "dsa");
-	ASSERT_PRINTF("st11 %*.*s\n", 10, 10, "hello");
+//	ASSERT_PRINTF("st1 %*.*d\n", 10, 10, 50);
+//	ASSERT_PRINTF("st2 %*.*d\n", 1, 50, 50);
+//	ASSERT_PRINTF("st3 %*.*d\n", 0, 0, 50);
+//	ASSERT_PRINTF("st4 %*.*d\n", 0, 50, 50);
+//	ASSERT_PRINTF("st5 %*.*d\n", 10, 0, 50);
+//	ASSERT_PRINTF("st6 %*.*d\n", 10, 10, 50);
+//	ASSERT_PRINTF("st12 %*d\n", 10, 50);
+//	ASSERT_PRINTF("st13 %*d\n", 0, 0);
+//	ASSERT_PRINTF("st14 %.*d\n", 0, 0);
+//	ASSERT_PRINTF("st15 %*d\n", 50, 5);
+//	ASSERT_PRINTF("st16 %0.*d\n", 50, 5);
+//	ASSERT_PRINTF("st17 %0.*d\n", 0, 0);
+//	ASSERT_PRINTF("st7 %*.*s\n", 1, 50, "hey");
+//	ASSERT_PRINTF("st8 %*.*s\n", 0, 0, "coucou");
+//	ASSERT_PRINTF("st9 %*.*s\n", 0, 50, "hey");
+//	ASSERT_PRINTF("st10 %*.*s\n", 10, 0, "dsa");
+//	ASSERT_PRINTF("st11 %*.*s\n", 10, 10, "hello");
 //	ASSERT_PRINTF("st7 %0.*s\n", 50, "hey");
-	ASSERT_PRINTF("st8 %.*s\n", 0, "coucou");
-	ASSERT_PRINTF("st9 %*s\n", 0, "hey");
-	ASSERT_PRINTF("st10 %*s\n", 10, "dsa");
-	ASSERT_PRINTF("st118 %*s\n", 100, "hello");
-	ASSERT_PRINTF("st119 %*s\n", 1000, "hello");
-	ASSERT_PRINTF("st120 %*s\n", 10000, "hello");
+//	ASSERT_PRINTF("st8 %.*s\n", 0, "coucou");
+//	ASSERT_PRINTF("st9 %*s\n", 0, "hey");
+//	ASSERT_PRINTF("st10 %*s\n", 10, "dsa");
+//	ASSERT_PRINTF("st118 %*s\n", 100, "hello");
+//	ASSERT_PRINTF("st119 %*s\n", 1000, "hello");
+//	ASSERT_PRINTF("st120 %*s\n", 10000, "hello");
 	/* ASSERT_PRINTF("st121 %*s\n", 100000, "hello"); */ // can't read so much for now
-	ASSERT_PRINTF("st118 %*d\n", 100, 0);
-	ASSERT_PRINTF("st119 %*d\n", 1000, 10);
-	ASSERT_PRINTF("st120 %*d\n", 10000, 467);
+//	ASSERT_PRINTF("st118 %*d\n", 100, 0);
+//	ASSERT_PRINTF("st119 %*d\n", 1000, 10);
+//	ASSERT_PRINTF("st120 %*d\n", 10000, 467);
 	/* ASSERT_PRINTF("st121 %*d\n", 100000, -589); */
-	ASSERT_PRINTF("ultimate1 %*d        %*i\n", 500, 0, 10, 10);
-	ASSERT_PRINTF("ultimate2 %*d %*s %*x %*X %*i %*u\n", 1, 5000, 1, "hey", 10, 54700, 1, 300, 10000, -55, 1, -60);
-	ASSERT_PRINTF("ultimate3 %*.*d %*.*s\n", 1, 50, 5000, 1, 0, "hey");
-	ASSERT_PRINTF("ultimate4 %*.*x %*.*X\n", 1, 50, 5000, 1, 0, 10);
-	ASSERT_PRINTF("ultimate5 %*.*u\n", 1, 50, 5000);
-	ASSERT_PRINTF("neg1 %*s\n", -9, "coucou");
-	ASSERT_PRINTF("neg2 %*.*s\n", -9, 4, "coucou");
-	ASSERT_PRINTF("neg3 %*s\n", -9, NULL);
-	ASSERT_PRINTF("neg4 %*.*s\n", 0, 0, "coucou");
-	ASSERT_PRINTF("neg5 %*s\n", -100, "coucou");
-	ASSERT_PRINTF("neg6 %*s\n", -156, "coucou");
-	ASSERT_PRINTF("neg7 %*.*s\n", -1586, 15, "coucou");
-	ASSERT_PRINTF("neg8 %*.*s\n", -1586, 15, "coucou");
-	ASSERT_PRINTF("neg9 %*.*s\n", 15856, 155, "coucou");
-	ASSERT_PRINTF("neg10 %*.*s\n", -15586, 15, "coucou");
-	ASSERT_PRINTF("neg11 %*.*s\n", -15586, 15, "coucou");
-	ASSERT_PRINTF("neg1 %*d\n", -9, 150);
-	ASSERT_PRINTF("neg2 %*.*d\n", -9, 4, 1555);
-	ASSERT_PRINTF("neg3 %*d\n", -9, -255);
-	ASSERT_PRINTF("neg4 %*.*d\n", 0, 0, -30);
-	ASSERT_PRINTF("neg5 %*d\n", -100, -589);
-	ASSERT_PRINTF("neg6 %*d\n", -156, 15555);
-	ASSERT_PRINTF("neg7 %*.*d\n", -1586, 15, 0);
-	ASSERT_PRINTF("neg8 %*.*d\n", -1586, 15, 300);
-	ASSERT_PRINTF("neg9 %*.*d\n", 15856, 155, -3000);
-	ASSERT_PRINTF("neg10 %*.*d\n", -15586, 15, 150);
-	ASSERT_PRINTF("neg11 %*.*d\n", -15586, 15, 0);
-	ASSERT_PRINTF("***************%*s%*d**************%*u*************", 10, "coucou", 10, 10, -50, 20);
+//	ASSERT_PRINTF("ultimate1 %*d        %*i\n", 500, 0, 10, 10);
+//	ASSERT_PRINTF("ultimate2 %*d %*s %*x %*X %*i %*u\n", 1, 5000, 1, "hey", 10, 54700, 1, 300, 10000, -55, 1, -60);
+//	ASSERT_PRINTF("ultimate3 %*.*d %*.*s\n", 1, 50, 5000, 1, 0, "hey");
+//	ASSERT_PRINTF("ultimate4 %*.*x %*.*X\n", 1, 50, 5000, 1, 0, 10);
+//	ASSERT_PRINTF("ultimate5 %*.*u\n", 1, 50, 5000);
+//	ASSERT_PRINTF("neg1 %*s\n", -9, "coucou");
+//	ASSERT_PRINTF("neg2 %*.*s\n", -9, 4, "coucou");
+//	ASSERT_PRINTF("neg3 %*s\n", -9, NULL);
+//	ASSERT_PRINTF("neg4 %*.*s\n", 0, 0, "coucou");
+//	ASSERT_PRINTF("neg5 %*s\n", -100, "coucou");
+//	ASSERT_PRINTF("neg6 %*s\n", -156, "coucou");
+//	ASSERT_PRINTF("neg7 %*.*s\n", -1586, 15, "coucou");
 	ASSERT_PRINTF("taaa %100s\n", "hello");
 }

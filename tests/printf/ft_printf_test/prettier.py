@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    prettier.py                                        :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cacharle <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/06 18:13:52 by cacharle          #+#    #+#              #
-#    Updated: 2021/01/31 03:08:45 by charles          ###   ########.fr        #
+#    Updated: 2022/03/01 14:18:46 by fsoares-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,23 +97,24 @@ def write_logs(logs, options):
 
 
 def print_logs(logs, options):
-    total_str = "\n\nTotal     {}  {}".format(green('OK: ', logs['ok']), red('KO: ', logs['ko']))
+    total_str = "\n\nTotal     {}  {}".format(green('OK: ', logs['ok']), red('KO: ', logs['ko']) if logs['ko'] > 0 else '')
     print(total_str)
-    print("=" * (len(total_str) - len(green("")) * 2 - len(red("")) * 2 - 2))
-
+    print("=" * (len(total_str) - len(green("")) * 2 - (len(red("")) * 2 if logs['ko'] > 0 else 2) - 2))
+    print()
     infos = logs["ko_info"][:20] if options["quiet"] else logs["ko_info"]
     for ko in infos:
         print_log_ko(ko, options)
     if options["quiet"] and logs["ko"] > 20:
         print("...")
-    print("\nSee result.log for more information\n")
+    if logs["ko"] > 0:
+        print(f"\nSee \033[0;35m{os.getcwd()}/result.log\033[0m for more information\n")
 
 
 if __name__ == "__main__":
-    print()
+    #print()
     options = parse_args()
-    if not options["no_clear"]:
-        os.system("clear")
+    #if not options["no_clear"]:
+    #    os.system("clear")
     logs = parse(options)
     print_logs(logs, options)
     if not options["no_log"]:

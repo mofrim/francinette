@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:15:03 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/26 17:24:29 by cacharle         ###   ########.fr       */
+/*   Updated: 2022/02/28 21:23:03 by fsoares-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -387,28 +387,28 @@ void test_moulitest_91(void)
 
 void test_moulitest_wildcard_01(void)
 {
-	ASSERT_PRINTF("%*d", 5, 42);
-	ASSERT_PRINTF("{%*d}", -5, 42);
-	ASSERT_PRINTF("{%*d}", 0, 42);
-	ASSERT_PRINTF("{%*c}", 0, 0);
-	ASSERT_PRINTF("{%*c}", -15, 0);
-	ASSERT_PRINTF("{%.*d}", 5, 42);
-	ASSERT_PRINTF("{%.*d}", -5, 42);
-	ASSERT_PRINTF("{%.*d}", 0, 42);
-	ASSERT_PRINTF("{%.*s}", 5, "42");
-	ASSERT_PRINTF("{%.*s}", -5, "42");
-	ASSERT_PRINTF("{%.*s}", 0, "42");
+//	ASSERT_PRINTF("%*d", 5, 42);
+//	ASSERT_PRINTF("{%*d}", -5, 42);
+//	ASSERT_PRINTF("{%*d}", 0, 42);
+//	ASSERT_PRINTF("{%*c}", 0, 0);
+//	ASSERT_PRINTF("{%*c}", -15, 0);
+//	ASSERT_PRINTF("{%.*d}", 5, 42);
+//	ASSERT_PRINTF("{%.*d}", -5, 42);
+//	ASSERT_PRINTF("{%.*d}", 0, 42);
+//	ASSERT_PRINTF("{%.*s}", 5, "42");
+//	ASSERT_PRINTF("{%.*s}", -5, "42");
+//	ASSERT_PRINTF("{%.*s}", 0, "42");
 //	ASSERT_PRINTF("{%*s}", 5, 0);
 //	ASSERT_PRINTF("{%*p}", 10, 0);
 }
 
 void test_moulitest_wildcard_02(void)
 {
-	ASSERT_PRINTF("%*.*d", 0, 3, 0);
+//	ASSERT_PRINTF("%*.*d", 0, 3, 0);
 }
 
 void test_moulitest_wildcard_03(void)
 {
 ////	ASSERT_PRINTF("{%*3d}", 5, 0);
-	ASSERT_PRINTF("{%05.*d}", -15, 42);
+//	ASSERT_PRINTF("{%05.*d}", -15, 42);
 }

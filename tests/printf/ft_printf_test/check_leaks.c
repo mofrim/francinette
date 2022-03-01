@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_leaks.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:14:36 by cacharle          #+#    #+#             */
-/*   Updated: 2020/07/08 18:14:37 by ykoh             ###   ########.fr       */
+/*   Updated: 2022/02/28 21:31:07 by fsoares-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,7 +246,7 @@ int main()
 	ft_printf("%%");
 	ft_printf("%5%");
 	ft_printf("%-5%");
-	ft_printf("%05%");
+	//ft_printf("%05%");
 	ft_printf("%-05%");
 	ft_printf("%");
 	ft_printf("%5");
@@ -1614,7 +1614,7 @@ int main()
 	ft_printf("p35 %.3u\n", 100);
 	ft_printf("p36 %.0u\n", 0);
 	ft_printf("%%\n");
-	ft_printf("%010%");
+	//ft_printf("%010%");
 	ft_printf("%u", 4294967295);
 	ft_printf("%d\n", 2147483647);
 	ft_printf("%d\n", -2147483648);

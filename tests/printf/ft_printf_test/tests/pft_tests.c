@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pft_tests.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:15:10 by cacharle          #+#    #+#             */
-/*   Updated: 2020/07/08 18:15:02 by ykoh             ###   ########.fr       */
+/*   Updated: 2022/02/28 21:30:50 by fsoares-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void test_pft_percent(void)
 	ASSERT_PRINTF("%%");
 	ASSERT_PRINTF("%5%");
 	ASSERT_PRINTF("%-5%");
-	ASSERT_PRINTF("%05%");
+	//ASSERT_PRINTF("%05%");
 	ASSERT_PRINTF("%-05%");
 }
 
@@ -38,7 +38,7 @@ void test_pft_nocrash(void)
 //	ASSERT_PRINTF("%-5");
 
 //	ASSERT_PRINTF("%.4p", &ncm_p);
-	ASSERT_PRINTF("%.p", &ncm_p);
+	//ASSERT_PRINTF("%.p", &ncm_p);
 //	ASSERT_PRINTF("%05p", &ncm_p);
 //	ASSERT_PRINTF("%0p", &ncm_p);
 	ASSERT_PRINTF("%-p", &ncm_p);

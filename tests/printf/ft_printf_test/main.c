@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:13:45 by cacharle          #+#    #+#             */
-/*   Updated: 2021/01/31 03:21:14 by charles          ###   ########.fr       */
+/*   Updated: 2022/02/28 21:32:06 by fsoares-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,35 +105,35 @@ int main(int argc, char **argv)
 	generated_test();
 
 	// added according to users
-	ASSERT_PRINTF("%.p", NULL);
+	//ASSERT_PRINTF("%.p", NULL);
 	ASSERT_PRINTF("%.d", 1);
 	ASSERT_PRINTF("%.d", 0);
 	ASSERT_PRINTF("%.u", 1);
 	ASSERT_PRINTF("%.s", "aasf");
-	ASSERT_PRINTF("%.p", NULL);
+	//ASSERT_PRINTF("%.p", NULL);
 	ASSERT_PRINTF("%.c", 'a');
 	ASSERT_PRINTF("%.x", 0xee);
 	ASSERT_PRINTF("%.X", 0xee);
-	ASSERT_PRINTF("%1.p", NULL);
+	//ASSERT_PRINTF("%1.p", NULL);
 	ASSERT_PRINTF("%1.d", 1);
 	ASSERT_PRINTF("%1.u", 1);
 	ASSERT_PRINTF("%1.s", "aasf");
-	ASSERT_PRINTF("%1.p", NULL);
+	//ASSERT_PRINTF("%1.p", NULL);
 	ASSERT_PRINTF("%1.c", 'a');
 	ASSERT_PRINTF("%1.x", 0xee);
 	ASSERT_PRINTF("%1.X", 0xee);
-	ASSERT_PRINTF("%5.p", NULL);
+	//ASSERT_PRINTF("%5.p", NULL);
 	ASSERT_PRINTF("%5.d", 1);
 	ASSERT_PRINTF("%5.u", 1);
 	ASSERT_PRINTF("%5.s", "aasf");
-	ASSERT_PRINTF("%5.p", NULL);
+	//ASSERT_PRINTF("%5.p", NULL);
 	ASSERT_PRINTF("%5.c", 'a');
 	ASSERT_PRINTF("%5.x", 0xee);
 	ASSERT_PRINTF("%5.X", 0xee);
 
-	ASSERT_PRINTF("-->|%-16.p|<-- ", NULL);
+	//ASSERT_PRINTF("-->|%-16.p|<-- ", NULL);
 	ASSERT_PRINTF("-->|%-16p|<-- ",  (void*)0x1900);
-	ASSERT_PRINTF("-->|%-16.p|<-- ", NULL);
+	//ASSERT_PRINTF("-->|%-16.p|<-- ", NULL);
 	ASSERT_PRINTF("-->|%-16p|<-- ",  (void*)0x1900);
 
 	/* ASSERT_PRINTF("%.0p", NULL); */
