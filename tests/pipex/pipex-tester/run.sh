@@ -71,7 +71,7 @@ source scripts/test_utils.sh
 
 source scripts/update.sh
 
-cat assets/banner.txt
+# cat assets/banner.txt
 
 # Parse arguments
 while getopts ":cltuv" opt
@@ -95,20 +95,7 @@ shift $((OPTIND-1))
 
 MEMLEAKS=""
 LEAK_RETURN=240
-if ! command -v valgrind > /dev/null 2>&1
-then
-	printf "${YELLOW}valgrind is not installed. Memory leaks detection is not enabled...${NC}\n"
-	LEAKS=0
-elif [[ "$OSTYPE" == "darwin"* ]]
-then
-	printf "${YELLOW}Memory leaks detection has been disabled on Darwin plateforms...${NC}\n"
-	LEAKS=0
-else
-	if [ $LEAKS -gt 0 ]
-	then
-		MEMLEAKS="valgrind --leak-check=full --show-leak-kinds=all --undef-value-errors=no --error-exitcode=$LEAK_RETURN --errors-for-leak-kinds=all"
-	fi
-fi
+LEAKS=0
 
 # Config
 if ! [ -f config.vars ] || [ $CONFIG -gt 0 ]
@@ -154,8 +141,7 @@ then
 	fatal_error "Unable to write to the 'outs' folder as your user...${NC}"
 fi
 
-printf "\n"
-printf "\t${BOLD}Tests${NC}\n\n"
+printf "${BOLD}Tests${NC}\n\n"
 trap pipex_summary SIGINT
 num="00"
 test_suites=("$@")
@@ -163,7 +149,7 @@ test_suites=("$@")
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program compiles"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute "${num##0}" "${test_suites[@]}"
 then
 	make -C $PROJECT_DIRECTORY > outs/test-$num.txt 2>&1
@@ -179,22 +165,22 @@ then
 		result="KO"
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
 if [ $VERBOSE -gt 0 ] && ([ "$result" != "OK" ] || [ "$result_color" != "$GREEN" ])
 then
-	[ -f outs/test-$num.txt ] && cat outs/test-$num.txt 
-	[ -f outs/test-$num-original.txt ] && cat outs/test-$num-original.txt 
-	[ -f outs/test-$num-tty.txt ] && cat outs/test-$num-tty.txt 
-	[ -f outs/test-$num-exit.txt ] && cat outs/test-$num-exit.txt 
+	[ -f outs/test-$num.txt ] && cat outs/test-$num.txt
+	[ -f outs/test-$num-original.txt ] && cat outs/test-$num-original.txt
+	[ -f outs/test-$num-tty.txt ] && cat outs/test-$num-tty.txt
+	[ -f outs/test-$num-exit.txt ] && cat outs/test-$num-exit.txt
 fi
 
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program is executable as ./pipex"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	if [ -x $PROJECT_DIRECTORY/pipex ]
@@ -207,7 +193,7 @@ then
 		result="KO"
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -216,7 +202,7 @@ pipex_verbose
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program doesn't use forbidden functions"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	nm -u $PROJECT_DIRECTORY/pipex > /dev/null 2>&1 | grep -Ev '(___error|___stack_chk_fail|___stack_chk_guard|access|close|dup|dup2|__errno_location|execve|exit|fork|free|__gmon_start__|__libc_start_main|malloc|open|perror|pipe|printf|read|strerror|unlink|wait|waitpid|write|dyld_stub_binder)(@|$)' > outs/test-$num-tty.txt 2>&1
@@ -232,7 +218,7 @@ then
 		result="KO"
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -241,7 +227,7 @@ pipex_verbose
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program does not crash with no parameters"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex > outs/test-$num-tty.txt 2>&1
@@ -272,7 +258,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -281,7 +267,7 @@ pipex_verbose
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program does not crash with one parameter"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" > outs/test-$num-tty.txt 2>&1
@@ -312,22 +298,22 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
 if [ $VERBOSE -gt 0 ] && ([ "$result" != "OK" ] || [ "$result_color" != "$GREEN" ])
 then
-	[ -f outs/test-$num.txt ] && cat outs/test-$num.txt 
-	[ -f outs/test-$num-original.txt ] && cat outs/test-$num-original.txt 
-	[ -f outs/test-$num-tty.txt ] && cat outs/test-$num-tty.txt 
-	[ -f outs/test-$num-exit.txt ] && cat outs/test-$num-exit.txt 
+	[ -f outs/test-$num.txt ] && cat outs/test-$num.txt
+	[ -f outs/test-$num-original.txt ] && cat outs/test-$num-original.txt
+	[ -f outs/test-$num-tty.txt ] && cat outs/test-$num-tty.txt
+	[ -f outs/test-$num-exit.txt ] && cat outs/test-$num-exit.txt
 fi
 
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program does not crash with two parameters"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "grep Now" > outs/test-$num-tty.txt 2>&1
@@ -358,7 +344,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -367,7 +353,7 @@ pipex_verbose
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program does not crash with three parameters"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "grep Now" "wc -w" > outs/test-$num-tty.txt 2>&1
@@ -398,7 +384,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -407,7 +393,7 @@ pipex_verbose
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program exits with the last command's status code"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	PATH=$PWD/assets:$PATH pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "grep Now" "exit 5" "outs/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -436,7 +422,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -445,7 +431,7 @@ pipex_verbose
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program handles infile's open error"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "not-existing/deepthought.txt" "grep Now" "wc -w" "outs/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -476,7 +462,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -485,7 +471,7 @@ pipex_verbose
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The output when infile's open error occur is correct"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "not-existing/deepthought.txt" "grep Now" "wc -w" "outs/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -517,7 +503,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -526,7 +512,7 @@ pipex_verbose
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program handles outfile's open error"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "grep Now" "wc -w" "not-existing/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -557,7 +543,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -566,7 +552,7 @@ pipex_verbose
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program handles execve errors"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	chmod 644 assets/deepthought.txt
@@ -598,7 +584,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -607,7 +593,7 @@ pipex_verbose
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program handles path that doesn't exist"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	PATH=/not/existing:$PATH pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "grep Now" "wc -w" "outs/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -638,7 +624,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -647,7 +633,7 @@ pipex_verbose
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program uses the environment list"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	PATH=$PWD/assets:$PATH VAR1="hello" VAR2="world" pipex_test $PROJECT_DIRECTORY/pipex "/dev/null" "env_var" "cat" "outs/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -674,7 +660,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -688,7 +674,7 @@ printf "$PROJECT_DIRECTORY/pipex \"assets/deepthought.txt\" \"cat\" \"hostname\"
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program handles the command"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "cat" "hostname" "outs/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -714,7 +700,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -723,7 +709,7 @@ pipex_verbose
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The output of the command is correct"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "cat" "hostname" "outs/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -750,7 +736,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -764,7 +750,7 @@ printf "$PROJECT_DIRECTORY/pipex \"assets/deepthought.txt\" \"grep Now\" \"head 
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program handles the command"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "grep Now" "head -2" "outs/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -790,7 +776,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -799,7 +785,7 @@ pipex_verbose
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The output of the command is correct"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "grep Now" "head -2" "outs/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -826,7 +812,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -840,7 +826,7 @@ printf "$PROJECT_DIRECTORY/pipex \"assets/deepthought.txt\" \"grep Now\" \"wc -w
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program handles the command"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "grep Now" "wc -w" "outs/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -866,7 +852,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -875,7 +861,7 @@ pipex_verbose
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The output of the command is correct"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "grep Now" "wc -w" "outs/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -902,7 +888,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -918,7 +904,7 @@ printf "$PROJECT_DIRECTORY/pipex \"assets/deepthought.txt\" \"wc -w\" \"cat\" \"
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program handles the command"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "grep Now" "cat" "outs/test-$num.txt" > outs/test-$num.0-tty.txt 2>&1
@@ -947,7 +933,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -956,7 +942,7 @@ pipex_verbose
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The output of the command is correct"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "grep Now" "cat" "outs/test-$num.txt" > outs/test-$num.0-tty.txt 2>&1
@@ -987,7 +973,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -1002,7 +988,7 @@ printf "${ULINE}(notexisting is a command that is not supposed to exist)${NC}\n\
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program handles the command"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "notexisting" "wc" "outs/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -1033,7 +1019,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -1042,7 +1028,7 @@ pipex_verbose
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The output of the command contains 'command not found'"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "notexisting" "wc" "outs/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -1069,7 +1055,7 @@ then
 			result_color=$YELLOW
 		fi
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -1078,7 +1064,7 @@ pipex_verbose
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The output of the command is correct"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "notexisting" "wc" "outs/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -1105,7 +1091,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -1120,7 +1106,7 @@ printf "${ULINE}(notexisting is a command that is not supposed to exist)${NC}\n\
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program exits with the right status code"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "cat" "notexisting" "outs/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -1151,7 +1137,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -1160,7 +1146,7 @@ pipex_verbose
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The output of the command contains 'command not found'"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "cat" "notexisting" "outs/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -1187,7 +1173,7 @@ then
 			result_color=$YELLOW
 		fi
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -1196,7 +1182,7 @@ pipex_verbose
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The output of the command is correct"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "cat" "notexisting" "outs/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -1223,7 +1209,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -1237,7 +1223,7 @@ printf "$PROJECT_DIRECTORY/pipex \"assets/deepthought.txt\" \"grep Now\" \"$(whi
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program exits with the right status code"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "grep Now" "$(which cat)" "outs/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -1268,7 +1254,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -1277,7 +1263,7 @@ pipex_verbose
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The output of the command is correct"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "assets/deepthought.txt" "grep Now" "$(which cat)" "outs/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -1305,7 +1291,7 @@ then
 			result_color=$YELLOW
 		fi
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
@@ -1319,7 +1305,7 @@ printf "$PROJECT_DIRECTORY/pipex \"/dev/urandom\" \"cat\" \"head -1\" \"outs/tes
 # TEST
 num=$(echo "$num 1" | awk '{printf "%02d", $1 + $2}')
 description="The program does not timeout"
-printf "${BLUE}# $num: %-69s  []${NC}" "$description"
+
 if should_execute ${num##0} ${test_suites[@]}
 then
 	pipex_test $PROJECT_DIRECTORY/pipex "/dev/urandom" "cat" "head -1" "outs/test-$num.txt" > outs/test-$num-tty.txt 2>&1
@@ -1345,7 +1331,7 @@ then
 		fi
 		result_color=$RED
 	fi
-	printf "\r${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
+	printf "${result_color}# $num: %-69s [%s]\n${NC}" "$description" "$result"
 else
 	printf "\n"
 fi
