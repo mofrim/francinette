@@ -6,7 +6,7 @@
 #    By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/07/15 15:13:38 by alelievr          #+#    #+#              #
-#    Updated: 2022/02/28 20:37:00 by fsoares-         ###   ########.fr        #
+#    Updated: 2022/08/09 17:05:43 by fsoares-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -214,7 +214,7 @@ fclean: clean
 
 printf:
 	@mkdir -p $(ASSETS_DIR)
-	@make -s -C "$(PRINTFDIR)" > /dev/null
+	@make -s -C "$(PRINTFDIR)" bonus > /dev/null
 	@cp "$(PRINTFDIR)"/$(LIB_FTPRINTF) $(ASSETS_DIR)
 	@rm -rf $(TMP_LIB_FTPRINTF)
 	@mkdir -p $(TMP_LIB_FTPRINTF)
