@@ -6,7 +6,7 @@
 /*   By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/17 17:42:18 by alelievr          #+#    #+#             */
-/*   Updated: 2022/10/11 16:42:11 by fsoares-         ###   ########.fr       */
+/*   Updated: 2022/10/11 16:53:58 by fsoares-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -3019,19 +3019,6 @@ void			test_ft_strlcat_speed(void *ptr) {
 			);
 }
 
-void			test_ft_strlcat_null3(void *ptr) {
-	typeof(strlcat)	*ft_strlcat = ptr;
-	SET_EXPLANATION("your strlcat crush when null parameter is sent with a size of 0");
-
-	SANDBOX_RAISE(
-			char	b[0xF] = "nyan !";
-
-			ft_strlcat(NULL, b, 0);
-
-			exit(TEST_SUCCESS);
-			);
-}
-
 void            test_ft_strlcat(void){
 	add_fun_subtest(test_ft_strlcat_basic);
 	add_fun_subtest(test_ft_strlcat_return);
@@ -3045,7 +3032,6 @@ void            test_ft_strlcat(void){
 	add_fun_subtest(test_ft_strlcat_return_value);
 	add_fun_subtest(test_ft_strlcat_null1);
 	add_fun_subtest(test_ft_strlcat_null2);
-	add_fun_subtest(test_ft_strlcat_null3);
 	add_fun_subtest(test_ft_strlcat_speed);
 }
 
@@ -3935,16 +3921,6 @@ void			test_ft_strnstr_speed(void *ptr) {
 			);
 }
 
-void			test_ft_strnstr_null3(void *ptr) {
-	typeof(strnstr)	*ft_strnstr = ptr;
-	SET_EXPLANATION("your strnstr crush when null parameter is sent with a size of 0");
-
-	SANDBOX_RAISE(
-			ft_strnstr(NULL, "fake", 0);
-			exit(TEST_SUCCESS);
-			);
-}
-
 void            test_ft_strnstr(void){
 	add_fun_subtest(test_ft_strnstr_basic);
 	add_fun_subtest(test_ft_strnstr_basic2);
@@ -3960,7 +3936,6 @@ void            test_ft_strnstr(void){
 	add_fun_subtest(test_ft_strnstr_electric_memory);
 	add_fun_subtest(test_ft_strnstr_null2);
 	add_fun_subtest(test_ft_strnstr_null1);
-	add_fun_subtest(test_ft_strnstr_null3);
 	add_fun_subtest(test_ft_strnstr_speed);
 }
 
@@ -7723,22 +7698,8 @@ void			test_ft_lstdelone_basic(void *ptr) {
 	VOID_STDERR;
 }
 
-void			test_ft_lstdelone_nulls(void *ptr) {
-	void	(*ft_lstdelone)(t_list *, void (*)(void *)) = ptr;
-	SET_EXPLANATION("your lstdelone does not segfault when null parameters are sent");
-
-	SANDBOX_PROT(
-			t_list	*node = lstnew(malloc(10));
-
-			ft_lstdelone(NULL, lstdelone_f);
-			ft_lstdelone(node, NULL);
-			free(node);
-			);
-}
-
 void			test_ft_lstdelone(void) {
 	add_fun_subtest(test_ft_lstdelone_basic);
-	add_fun_subtest(test_ft_lstdelone_nulls);
 }
 
 ////////////////////////////////
@@ -7820,24 +7781,10 @@ void			test_ft_lstclear_number(void *ptr) {
 	VOID_STDERR;
 }
 
-void			test_ft_lstclear_nulls(void *ptr) {
-	void		(*ft_lstclear)(t_list **, void (*)(void *)) = ptr;
-	SET_EXPLANATION("your lstclear does not segfault when null parameters are sent");
-
-	SANDBOX_PROT(
-			t_list	*lst = lstnew(malloc(10));
-
-			ft_lstclear(NULL, lstdelone_f);
-			ft_lstclear(&lst, NULL);
-			free(lst);
-			);
-}
-
 void			test_ft_lstclear(void) {
 	add_fun_subtest(test_ft_lstclear_basic);
 	add_fun_subtest(test_ft_lstclear_free);
 	add_fun_subtest(test_ft_lstclear_number);
-	add_fun_subtest(test_ft_lstclear_nulls);
 }
 
 ////////////////////////////////
