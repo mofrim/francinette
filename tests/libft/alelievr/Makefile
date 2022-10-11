@@ -6,7 +6,7 @@
 #    By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/04/04 19:22:36 by alelievr          #+#    #+#              #
-#    Updated: 2022/10/09 23:00:43 by fsoares-         ###   ########.fr        #
+#    Updated: 2022/10/11 16:57:36 by fsoares-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ WRAPNAME	=	run_test
 FRAMEWORK	=
 
 #	Compiler
-CFLAGS		=	-D TIMEOUT_MILLIS=$(TIMEOUT) # -g3 -fsanitize=address
+CFLAGS		=	-D TIMEOUT_MILLIS=$(TIMEOUT) -Werror -Wall -Wextra # -g3 -fsanitize=address
 CSOFLAGS	=	-shared -fPIC
 CSOFLAGS2	=
 CC			=	clang
