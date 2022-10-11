@@ -6,7 +6,7 @@
 /*   By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/13 19:59:29 by alelievr          #+#    #+#             */
-/*   Updated: 2022/01/24 19:34:32 by fsoares-         ###   ########.fr       */
+/*   Updated: 2022/10/09 23:20:57 by fsoares-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,8 @@ void	run_subtests(void *h, int start) {
 	display_test_result(TEST_FINISHED, "");
 	dprintf(g_log_fd, "\n");
 	close(g_log_fd);
+	printf("\n\n");
+	fflush(stdout);
 	exit(0);
 }
 
