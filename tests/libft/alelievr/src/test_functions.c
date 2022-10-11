@@ -6,7 +6,7 @@
 /*   By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/17 17:42:18 by alelievr          #+#    #+#             */
-/*   Updated: 2022/02/03 21:55:04 by fsoares-         ###   ########.fr       */
+/*   Updated: 2022/10/11 16:42:11 by fsoares-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1630,13 +1630,12 @@ void			test_ft_strdup_size(void *ptr) {
 	SET_EXPLANATION("your strdup did not allocate the good size so the \\0 test may be false");
 
 	SANDBOX_RAISE(
-			char 	*str;
 			char	*tmp = "this is a normal test";
 			int		r_size = strlen(tmp);
 			int		size;
 
 			MALLOC_SIZE;
-			str = ft_strdup(tmp);
+			ft_strdup(tmp);
 			MALLOC_RESET;
 			size = get_last_malloc_size();
 			if (size == r_size + 1)
@@ -3020,6 +3019,19 @@ void			test_ft_strlcat_speed(void *ptr) {
 			);
 }
 
+void			test_ft_strlcat_null3(void *ptr) {
+	typeof(strlcat)	*ft_strlcat = ptr;
+	SET_EXPLANATION("your strlcat crush when null parameter is sent with a size of 0");
+
+	SANDBOX_RAISE(
+			char	b[0xF] = "nyan !";
+
+			ft_strlcat(NULL, b, 0);
+
+			exit(TEST_SUCCESS);
+			);
+}
+
 void            test_ft_strlcat(void){
 	add_fun_subtest(test_ft_strlcat_basic);
 	add_fun_subtest(test_ft_strlcat_return);
@@ -3033,6 +3045,7 @@ void            test_ft_strlcat(void){
 	add_fun_subtest(test_ft_strlcat_return_value);
 	add_fun_subtest(test_ft_strlcat_null1);
 	add_fun_subtest(test_ft_strlcat_null2);
+	add_fun_subtest(test_ft_strlcat_null3);
 	add_fun_subtest(test_ft_strlcat_speed);
 }
 
@@ -3834,6 +3847,7 @@ void			test_ft_strnstr_zero_len3(void *ptr) {
 
 void			test_ft_strnstr_same_ptr(void *ptr) {
 	typeof(strnstr)	*ft_strnstr = ptr;
+	SET_EXPLANATION("your strnstr does not work with the same pointer \"little\" string");
 
 	SANDBOX_RAISE(
 			char	*s1 = "AAAAAAAAAAAAA";
@@ -3848,14 +3862,16 @@ void			test_ft_strnstr_same_ptr(void *ptr) {
 			);
 }
 
-void			test_ft_strnstr_zero(void *ptr) {
+void			test_ft_strnstr_overlen(void *ptr) {
 	typeof(strnstr)	*ft_strnstr = ptr;
+	SET_EXPLANATION("your strnstr does not work with the same pointer and an exceeding length value");
 
 	SANDBOX_RAISE(
 			char	*s1 = "A";
+			size_t	max = strlen(s1) + 1;
 
-			char	*i1 = strnstr(s1, s1, 2);
-			char	*i2 = ft_strnstr(s1, s1, 2);
+			char	*i1 = strnstr(s1, s1, max);
+			char	*i2 = ft_strnstr(s1, s1, max);
 			if (i1 == i2)
 				exit(TEST_SUCCESS);
 			SET_DIFF(i1, i2);
@@ -3865,7 +3881,7 @@ void			test_ft_strnstr_zero(void *ptr) {
 
 void			test_ft_strnstr_electric_memory(void *ptr) {
 	typeof(strnstr)	*ft_strnstr = ptr;
-	SET_EXPLANATION("your strnstr crash because it read too many bytes !");
+	SET_EXPLANATION("your strnstr crashes because it read too many bytes !");
 
 	SANDBOX_RAISE(
 			const size_t size = 20;
@@ -3903,6 +3919,7 @@ void			test_ft_strnstr_null2(void *ptr) {
 
 void			test_ft_strnstr_speed(void *ptr) {
 	typeof(strnstr)	*ft_strnstr = ptr;
+	SET_EXPLANATION("your strnstr seems to be relatively slow");
 
 	SANDBOX_SPEED(
 			size_t	size = BFSIZE * 4;
@@ -3918,6 +3935,16 @@ void			test_ft_strnstr_speed(void *ptr) {
 			);
 }
 
+void			test_ft_strnstr_null3(void *ptr) {
+	typeof(strnstr)	*ft_strnstr = ptr;
+	SET_EXPLANATION("your strnstr crush when null parameter is sent with a size of 0");
+
+	SANDBOX_RAISE(
+			ft_strnstr(NULL, "fake", 0);
+			exit(TEST_SUCCESS);
+			);
+}
+
 void            test_ft_strnstr(void){
 	add_fun_subtest(test_ft_strnstr_basic);
 	add_fun_subtest(test_ft_strnstr_basic2);
@@ -3929,10 +3956,11 @@ void            test_ft_strnstr(void){
 	add_fun_subtest(test_ft_strnstr_zero_len2);
 	add_fun_subtest(test_ft_strnstr_zero_len3);
 	add_fun_subtest(test_ft_strnstr_same_ptr);
-	add_fun_subtest(test_ft_strnstr_zero);
+	add_fun_subtest(test_ft_strnstr_overlen);
 	add_fun_subtest(test_ft_strnstr_electric_memory);
 	add_fun_subtest(test_ft_strnstr_null2);
 	add_fun_subtest(test_ft_strnstr_null1);
+	add_fun_subtest(test_ft_strnstr_null3);
 	add_fun_subtest(test_ft_strnstr_speed);
 }
 
@@ -4447,6 +4475,22 @@ void            test_ft_strncmp(void){
 //         ft_atoi            //
 ////////////////////////////////
 
+void			test_ft_atoi_basic_zero(void *ptr) {
+	typeof(atoi)	*ft_atoi = ptr;
+	SET_EXPLANATION("your atoi does not work with zero number");
+
+	SANDBOX_RAISE(
+			char	*n = "0";
+
+			int		i1 = atoi(n);
+			int		i2 = ft_atoi(n);
+			if (i1 == i2)
+				exit(TEST_SUCCESS);
+			SET_DIFF_INT(i1, i2);
+			exit(TEST_FAILED);
+			);
+}
+
 void			test_ft_atoi_basic(void *ptr) {
 	typeof(atoi)	*ft_atoi = ptr;
 	SET_EXPLANATION("your atoi does not work with positive numbers");
@@ -4741,6 +4785,7 @@ void			test_ft_atoi_speed(void *ptr) {
 }
 
 void            test_ft_atoi(void){
+	add_fun_subtest(test_ft_atoi_basic_zero);
 	add_fun_subtest(test_ft_atoi_basic);
 	add_fun_subtest(test_ft_atoi_negative);
 	add_fun_subtest(test_ft_atoi_rand);
@@ -4822,12 +4867,12 @@ void			test_ft_isalnum_(void *ptr) {
 	typeof(isalnum)	*ft_isalnum = ptr;
 	SET_EXPLANATION("your isalnum just doesn't work, REALLY ?!");
 
+	// working fine in/on Ubuntu + a reasonable range
 	SANDBOX_RAISE(
-			int		i;
-			i = -1;
+			int		i = 0;
 			while (i < 0x100)
 			{
-				if (!!ft_isalnum(i) != !!isalnum(i))
+				if ((bool)ft_isalnum(i) != (bool)isalnum(i))
 					exit(TEST_FAILED);
 				i++;
 			}
@@ -4895,16 +4940,16 @@ void            test_ft_isprint(void){
 }
 
 ////////////////////////////////
-//        ft_touupper         //
+//        ft_toupper         //
 ////////////////////////////////
 
 void			test_ft_toupper_(void *ptr) {
 	typeof(toupper)	*ft_toupper = ptr;
 	SET_EXPLANATION("your toupper just doesn't work, REALLY ?!");
 
+	// working fine in/on Ubuntu + a reasonable range
 	SANDBOX_RAISE(
-			int		i;
-			i = -1;
+			int		i = 0;
 			while (i < 0x100)
 			{
 				if (ft_toupper(i) != toupper(i)) {
@@ -4929,9 +4974,9 @@ void			test_ft_tolower_(void *ptr) {
 	typeof(tolower)	*ft_tolower = ptr;
 	SET_EXPLANATION("your tolower just doesn't work, REALLY ?!");
 
+	// working fine in/on Ubuntu + a reasonable range
 	SANDBOX_RAISE(
-			int		i;
-			i = -1;
+			int		i = 0;
 			while (i < 0x100)
 			{
 				if (ft_tolower(i) != tolower(i)) {
@@ -5051,12 +5096,11 @@ void			test_ft_memalloc_malloc_size(void *ptr) {
 	SET_EXPLANATION("your memalloc did not allocate the good size");
 
 	SANDBOX_RAISE(
-			void	*ret;
 			int		alloc_size = 42;
 			int		size;
 
 			MALLOC_SIZE;
-			ret = ft_memalloc(alloc_size);
+			ft_memalloc(alloc_size);
 			MALLOC_RESET;
 
 			size = get_last_malloc_size();
@@ -6726,10 +6770,9 @@ void			test_ft_itoa_size(void *ptr) {
 
 	SANDBOX_RAISE(
 			int		size;
-			char	*i1;
 
 			MALLOC_SIZE;
-			i1 = ft_itoa(-5859);
+			ft_itoa(-5859);
 			MALLOC_RESET;
 			size = get_last_malloc_size();
 
@@ -6746,10 +6789,9 @@ void			test_ft_itoa_size2(void *ptr) {
 
 	SANDBOX_RAISE(
 			int		size;
-			char	*i1;
 
 			MALLOC_SIZE;
-			i1 = ft_itoa(0);
+			ft_itoa(0);
 			MALLOC_RESET;
 			size = get_last_malloc_size();
 
@@ -7097,7 +7139,7 @@ void            test_ft_putendl(void){
 
 void			test_ft_putnbr_basic(void *ptr) {
 	void		(*ft_putnbr)(int) = ptr;
-	SET_EXPLANATION("your putnbr does not work");
+	SET_EXPLANATION("your putnbr does not work with zero number");
 
 	SANDBOX_RAISE(
 			int		i = 0;
@@ -7106,9 +7148,9 @@ void			test_ft_putnbr_basic(void *ptr) {
 			STDOUT_TO_BUFF;
 			ft_putnbr(i);
 			GET_STDOUT(buff, 0xF0);
-			if (atoi(buff) == i)
+			if (buff[0] == '0')
 				exit(TEST_SUCCESS);
-			SET_DIFF_INT(i, atoi(buff));
+			//SET_DIFF_INT(i, atoi(buff));
 			exit(TEST_FAILED);
 			);
 }
@@ -7439,7 +7481,7 @@ void            test_ft_putendl_fd(void){
 
 void			test_ft_putnbr_fd_basic(void *ptr) {
 	void		(*ft_putnbr_fd)(int, int fd) = ptr;
-	SET_EXPLANATION("your putnbr_fd does not work");
+	SET_EXPLANATION("your putnbr_fd does not work with zero number");
 
 	SANDBOX_RAISE(
 			int		i = 0;
@@ -7448,9 +7490,9 @@ void			test_ft_putnbr_fd_basic(void *ptr) {
 			STDERR_TO_BUFF;
 			ft_putnbr_fd(i, STDERR_FILENO);
 			GET_STDERR(buff, 0xF0);
-			if (atoi(buff) == i)
+			if (buff[0] == '0')
 				exit(TEST_SUCCESS);
-			SET_DIFF_INT(i, atoi(buff));
+			//SET_DIFF_INT(i, atoi(buff));
 			exit(TEST_FAILED);
 			);
 }
@@ -7681,8 +7723,22 @@ void			test_ft_lstdelone_basic(void *ptr) {
 	VOID_STDERR;
 }
 
+void			test_ft_lstdelone_nulls(void *ptr) {
+	void	(*ft_lstdelone)(t_list *, void (*)(void *)) = ptr;
+	SET_EXPLANATION("your lstdelone does not segfault when null parameters are sent");
+
+	SANDBOX_PROT(
+			t_list	*node = lstnew(malloc(10));
+
+			ft_lstdelone(NULL, lstdelone_f);
+			ft_lstdelone(node, NULL);
+			free(node);
+			);
+}
+
 void			test_ft_lstdelone(void) {
 	add_fun_subtest(test_ft_lstdelone_basic);
+	add_fun_subtest(test_ft_lstdelone_nulls);
 }
 
 ////////////////////////////////
@@ -7764,10 +7820,24 @@ void			test_ft_lstclear_number(void *ptr) {
 	VOID_STDERR;
 }
 
+void			test_ft_lstclear_nulls(void *ptr) {
+	void		(*ft_lstclear)(t_list **, void (*)(void *)) = ptr;
+	SET_EXPLANATION("your lstclear does not segfault when null parameters are sent");
+
+	SANDBOX_PROT(
+			t_list	*lst = lstnew(malloc(10));
+
+			ft_lstclear(NULL, lstdelone_f);
+			ft_lstclear(&lst, NULL);
+			free(lst);
+			);
+}
+
 void			test_ft_lstclear(void) {
 	add_fun_subtest(test_ft_lstclear_basic);
 	add_fun_subtest(test_ft_lstclear_free);
 	add_fun_subtest(test_ft_lstclear_number);
+	add_fun_subtest(test_ft_lstclear_nulls);
 }
 
 ////////////////////////////////
@@ -8080,7 +8150,8 @@ void			test_ft_lstmap_basic(void *ptr) {
 
 			l->next = lstnew(strdup("ss"));
 			l->next->next = lstnew(strdup("-_-"));
-			ret = ft_lstmap(l, lstmap_f, NULL);
+			// ret = ft_lstmap(l, lstmap_f, NULL);  // del may be necessary to use
+			ret = ft_lstmap(l, lstmap_f, lstdel_f); // or lstdelone_f
 			if (!strcmp(ret->content, "OK !") && !strcmp(ret->next->content, "OK !") && !strcmp(ret->next->next->content, "OK !") && !strcmp(l->content, " 1 2 3 ") && !strcmp(l->next->content, "ss") && !strcmp(l->next->next->content, "-_-"))
 				exit(TEST_SUCCESS);
 			SET_DIFF(" 1 2 3 ", l->content);
@@ -8432,13 +8503,12 @@ void			test_ft_strndup_size(void *ptr) {
 	SET_EXPLANATION("your strndup did not allocate the good size so the \\0 test may be false");
 
 	SANDBOX_RAISE(
-			char 	*str;
 			char	*tmp = "this is a normal test";
 			int		r_size = 5;
 			int		size;
 
 			MALLOC_SIZE;
-			str = ft_strndup(tmp, r_size);
+			ft_strndup(tmp, r_size);
 			MALLOC_RESET;
 			size = get_last_malloc_size();
 			if (size != r_size + 1) {
