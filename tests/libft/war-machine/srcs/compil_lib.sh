@@ -77,8 +77,6 @@ func_compil_lib()
 			then
 				printf "\033[12G${COLOR_FAIL}missing${DEFAULT}"
 			else
-				echo "${PATH_LIBFT}"
-				ls "${PATH_LIBFT}"
 				if [ -e "${PATH_LIBFT}"/libft.a ]
 				then
 					printf "\033[12G${COLOR_OK}ok${DEFAULT}"
