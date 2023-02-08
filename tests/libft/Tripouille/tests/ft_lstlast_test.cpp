@@ -12,6 +12,17 @@ extern "C"
 
 void freeList(t_list *head) {if (head) freeList((t_list *)head->next); free(head);}
 
+void	own_add_back(t_list **list, t_list *node)
+{
+	t_list	*last;
+
+	last = ft_lstlast(*list);
+	if (last == NULL)
+		*list = node;
+	else
+		last->next = node;
+}
+
 int iTest = 1;
 int main(void)
 {
@@ -20,9 +31,9 @@ int main(void)
 
 	t_list * l =  NULL;
 	/* 1 */ check(ft_lstlast(l) == 0);
-	ft_lstadd_back(&l, ft_lstnew((void*)1));
+	own_add_back(&l, ft_lstnew((void*)1));
 	/* 2 */ check(ft_lstlast(l)->content == (void*)1);
-	ft_lstadd_back(&l, ft_lstnew((void*)2));
+	own_add_back(&l, ft_lstnew((void*)2));
 	/* 3 */ check(ft_lstlast(l)->content == (void*)2);
 	/* 4 */ check(ft_lstlast(l)->next == 0);
 	freeList(l); showLeaks();

@@ -13,6 +13,17 @@ extern "C"
 void freeList(t_list *head) {if (head) freeList((t_list *)head->next); free(head);}
 void * addOne(void * p) {void * r = malloc(sizeof(int)); *(int*)r = *(int*)p + 1; return (r);}
 
+void	own_add_back(t_list **list, t_list *node)
+{
+	t_list	*last;
+
+	last = ft_lstlast(*list);
+	if (last == NULL)
+		*list = node;
+	else
+		last->next = node;
+}
+
 int iTest = 1;
 int main(void)
 {
@@ -22,7 +33,7 @@ int main(void)
 	int tab[] = {0, 1, 2, 3};
 	t_list * l =  ft_lstnew(tab);
 	for (int i = 1; i < 4; ++i)
-		ft_lstadd_back(&l, ft_lstnew(tab + i));
+		own_add_back(&l, ft_lstnew(tab + i));
 	t_list * m = ft_lstmap(l, addOne, free);
 	t_list * tmp = l;
 	/* 1 2 3 4 */ for (int i = 0; i < 4; ++i)
