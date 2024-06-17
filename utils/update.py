@@ -71,7 +71,8 @@ def update_paco():
 
 	print(f"There is a new version of francinette ({current} -> {new_version}), do you wish to update?")
 	while (True):
-		choice = input("[Y]es / [N]o / [A]lways / [D]o not update ever: ").lower()
+		choice = 'd'
+		# choice = input("[Y]es / [N]o / [A]lways / [D]o not update ever: ").lower()
 		if choice.startswith('y'):
 			break
 		if choice.startswith('n'):
