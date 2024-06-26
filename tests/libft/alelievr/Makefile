@@ -6,7 +6,7 @@
 #    By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/04/04 19:22:36 by alelievr          #+#    #+#              #
-#    Updated: 2024/06/18 08:12:49 by fmaurer          ###   ########.fr        #
+#    Updated: 2024/06/24 20:37:30 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,12 +52,12 @@ SRC			=	src/main.c						\
 OBJDIR		=	obj
 
 #	Includes
-NIXINC = -I /nix/store/203ha7k22vb250pvn8xm7yid9zi9a9hk-libbsd-unstable-2023-04-29-dev/include -I /nix/store/s5lxfiym8i8ab3br71g7ax58alv6phfk-ncurses-6.4-dev/include
+NIXINC = -I $(shell nix eval nixpkgs#ncurses.dev.outPath)/include -I $(shell nix eval nixpkgs#libbsd.dev.outPath)/include
 INCDIR		=	./include $(NIXINC)
 
 #	Libraries
+NIXLIBS = -L $(shell nix eval nixpkgs#ncurses.outPath)/lib -L $(shell nix eval nixpkgs#libbsd.outPath)/lib -L $(shell nix eval nixpkgs#libmd.outPath)/lib
 LIBDIR		=
-NIXLIBS = -L /nix/store/znz0yrnzmfz6can2kng3anp5gkjrwf0y-ncurses-6.4/lib -L /nix/store/xcqz3gqv9npchpa2das1g1k01h1wi2dw-libbsd-unstable-2023-04-29/lib -L /nix/store/rvb0zglv3w82ih2wk2r8znnl6pwjl1v1-libmd-1.1.0/lib
 LIBS		=	$(NIXLIBS) -lncurses
 
 #	Assets
