@@ -6,7 +6,7 @@
 #    By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/07/15 15:13:38 by alelievr          #+#    #+#              #
-#    Updated: 2022/08/09 17:05:43 by fsoares-         ###   ########.fr        #
+#    Updated: 2024/07/20 20:33:24 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -214,11 +214,11 @@ fclean: clean
 
 printf:
 	@mkdir -p $(ASSETS_DIR)
-	@make -s -C "$(PRINTFDIR)" bonus > /dev/null
+	make -s -C "$(PRINTFDIR)" bonus
 	@cp "$(PRINTFDIR)"/$(LIB_FTPRINTF) $(ASSETS_DIR)
 	@rm -rf $(TMP_LIB_FTPRINTF)
 	@mkdir -p $(TMP_LIB_FTPRINTF)
-	@cd $(TMP_LIB_FTPRINTF) && ar -xv ../$(LIB_FTPRINTF) >/dev/null && $(CC) -shared -fPIC *.o -o $(LIB_FTPRINTF_SO) && cp $(LIB_FTPRINTF_SO) ../..
+	cd $(TMP_LIB_FTPRINTF) && ar -xv ../$(LIB_FTPRINTF) >/dev/null && $(CC) -shared -fPIC *.o -o $(LIB_FTPRINTF_SO) && cp $(LIB_FTPRINTF_SO) ../..
 
 #	All removing then compiling
 re: fclean all

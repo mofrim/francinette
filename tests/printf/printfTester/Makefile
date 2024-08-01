@@ -34,12 +34,12 @@ $(BONUS): %: bonus_start $(UTILS_O)
 
 mandatory_start: checkmakefile
 	@tput setaf 6
-	@make -s -C ..
+	make -C ..
 	@tput setaf 4 && echo [Mandatory]
 
 bonus_start: checkmakefile
 	@tput setaf 6
-	@make bonus -s -C ..
+	make bonus -C ..
 	@tput setaf 5 && echo [Bonus]
 
 checkmakefile:
