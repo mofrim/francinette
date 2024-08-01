@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   random_args.c                                      :+:      :+:    :+:   */
+/*   random_args.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alelievr <alelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 16:04:18 by alelievr          #+#    #+#             */
-/*   Updated: 2018/02/06 13:23:20 by alelievr         ###   ########.fr       */
+/*   Updated: 2024/07/20 10:50:43 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ static const char *	randomStrings[] = {
 
 static int		generateRandomInts(long long *args, int n)
 {
-	intmax_t	r;
+	__intmax_t	r;
 	int			ret = 1;
 
 	*args++ = 0;
 	for (int i = 0; i < n; i++)
 	{
-		r = ((intmax_t)rand() * (intmax_t)rand());
+		r = ((__intmax_t)rand() * (__intmax_t)rand());
 		*args++ = LONGIFY(r);
 		ret++;
 	}

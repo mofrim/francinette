@@ -6,11 +6,13 @@
 /*   By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 16:20:34 by alelievr          #+#    #+#             */
-/*   Updated: 2022/02/28 19:47:18 by fsoares-         ###   ########.fr       */
+/*   Updated: 2024/08/02 00:02:41 by fmaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "source-generator.h"
+#include <cstring>
+
 
 static std::list< intmax_t >		generateRandomNumbers(size_t num, intmax_t mask, bool sup = false)
 {
