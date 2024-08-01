@@ -6,14 +6,15 @@
 #    By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/06 18:13:15 by cacharle          #+#    #+#              #
-#    Updated: 2022/03/01 13:57:08 by fsoares-         ###   ########.fr        #
+#    Updated: 2024/08/01 23:59:20 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FT_PRINTF_PATH = ..
 
 CC = gcc
-CCFLAGS = -Wall -Wextra -Wno-trigraphs  # Adding -std=c99 causes crash
+# CCFLAGS = -Wall -Wextra -Wno-trigraphs  # Adding -std=c99 causes crash
+CCFLAGS =
 LDFLAGS = -L$(FT_PRINTF_PATH) -lftprintf
 
 NAME = ft_printf_test
@@ -32,32 +33,32 @@ SRC = main.c helper.c tests/pft_tests.c tests/moulitest_tests.c tests/printf_tes
 OBJ = $(SRC:.c=.o)
 
 run: all
-	@./$(NAME) | $(PYTHON) prettier.py
+	./$(NAME) | $(PYTHON) prettier.py
 
 runbonus: allbonus run
 
 verbose: all
-	@./$(NAME) | $(PYTHON) prettier.py --verbose
+	./$(NAME) | $(PYTHON) prettier.py --verbose
 
 verbosebonus: allbonus verbose
 
 quiet: all
-	@./$(NAME) | $(PYTHON) prettier.py --quiet
+	./$(NAME) | $(PYTHON) prettier.py --quiet
 
 quietbonus: allbonus quiet
 
 no_clear: all
-	@./$(NAME) | $(PYTHON) prettier.py --no-clear
+	./$(NAME) | $(PYTHON) prettier.py --no-clear
 
 no_clearbonus: allbonus no_clear
 
 interactive: all
-	@./$(NAME) | $(PYTHON) prettier.py --interactive
+	./$(NAME) | $(PYTHON) prettier.py --interactive
 
 interactivebonus: allbonus interactive
 
 raw: all
-	@./$(NAME)
+	./$(NAME)
 
 rawbonus: allbonus raw
 
@@ -76,17 +77,21 @@ check_leaks_verbose:
 	$(CC) $(CCFLAGS) -g -o $(CHECK_LEAKS_NAME) check_leaks.c $(LDFLAGS)
 	valgrind --leak-check=full ./$(CHECK_LEAKS_NAME) > /dev/null
 
-
 all: $(NAME)
+	# just for checking what the heck is being called by franci
+	@echo "Aha! \"make all\" is being called!"
 
 allbonus: CCFLAGS += -D FT_PRINTF_TEST_BONUS
 allbonus: ft_printf_all ft_printf_bonus $(NAME)
 
-$(NAME): ft_printf_all $(OBJ)
-	@$(CC) $(CCFLAGS) -o $@ $(OBJ) $(LDFLAGS)
+$(NAME): ft_printf_bonus  $(OBJ)
+	$(CC) $(CCFLAGS) -D FT_PRINTF_TEST_BONUS -o $@ $(OBJ) $(LDFLAGS)
+
+# $(NAME): ft_printf_all $(OBJ)
+# 	$(CC) $(CCFLAGS) -o $@ $(OBJ) $(LDFLAGS)
 
 %.o: %.c header.h tests/tests.h
-	@$(CC) $(CCFLAGS) -c -o $@ $<
+	$(CC) $(CCFLAGS) -c -o $@ $<
 
 clean:
 	$(RM) $(OBJ)
@@ -98,7 +103,7 @@ fclean: clean
 re: fclean all
 
 ft_printf_all:
-	@$(MAKE) -s -C $(FT_PRINTF_PATH) all
+	$(MAKE) -C $(FT_PRINTF_PATH) all
 
 ft_printf_bonus:
-	@$(MAKE) -s -C $(FT_PRINTF_PATH) bonus
+	$(MAKE) -C $(FT_PRINTF_PATH) bonus
