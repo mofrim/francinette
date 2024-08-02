@@ -6,7 +6,7 @@
 /*   By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/13 20:26:54 by alelievr          #+#    #+#             */
-/*   Updated: 2024/06/18 08:56:11 by fmaurer          ###   ########.fr       */
+/*   Updated: 2022/01/24 19:43:51 by fsoares-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,7 +339,7 @@ static bool isCheater(void)
 	int		i = 0;
 
 	STDOUT_TO_BUFF;
-	system("/run/current-system/sw/bin/nm -u libft.so");
+	system("nm -u libft.so");
 	GET_STDOUT(buff, sizeof(buff));
 	while (forbidden_functions[i])
 		if (strstr(buff, forbidden_functions[i++]))

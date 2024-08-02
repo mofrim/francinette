@@ -6,7 +6,7 @@
 #    By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/04/04 19:22:36 by alelievr          #+#    #+#              #
-#    Updated: 2024/06/24 20:37:30 by fmaurer          ###   ########.fr        #
+#    Updated: 2024/08/02 07:25:39 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,13 +52,11 @@ SRC			=	src/main.c						\
 OBJDIR		=	obj
 
 #	Includes
-NIXINC = -I $(shell nix eval nixpkgs#ncurses.dev.outPath)/include -I $(shell nix eval nixpkgs#libbsd.dev.outPath)/include
-INCDIR		=	./include $(NIXINC)
+INCDIR		=	./include
 
 #	Libraries
-NIXLIBS = -L $(shell nix eval nixpkgs#ncurses.outPath)/lib -L $(shell nix eval nixpkgs#libbsd.outPath)/lib -L $(shell nix eval nixpkgs#libmd.outPath)/lib
 LIBDIR		=
-LIBS		=	$(NIXLIBS) -lncurses
+LIBS		=	-lncurses
 
 #	Assets
 ASSETDIR	=	assets

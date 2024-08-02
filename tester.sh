@@ -1,5 +1,4 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -i bash /home/frido/bin/francinette-app/shell.nix
+#!/usr/bin/env bash
 DIR="$HOME/bin/francinette-app"
 
 current_dir=$PWD
