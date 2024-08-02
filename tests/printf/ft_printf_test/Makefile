@@ -6,14 +6,15 @@
 #    By: fsoares- <fsoares-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/06 18:13:15 by cacharle          #+#    #+#              #
-#    Updated: 2024/08/01 23:59:20 by fmaurer          ###   ########.fr        #
+#    Updated: 2024/08/02 08:16:48 by fmaurer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FT_PRINTF_PATH = ..
 
 CC = gcc
-# CCFLAGS = -Wall -Wextra -Wno-trigraphs  # Adding -std=c99 causes crash
+## compiling with error flags produces too much warnings
+# CCFLAGS = -Wall -Wextra -Wno-trigraphs
 CCFLAGS =
 LDFLAGS = -L$(FT_PRINTF_PATH) -lftprintf
 
@@ -84,11 +85,12 @@ all: $(NAME)
 allbonus: CCFLAGS += -D FT_PRINTF_TEST_BONUS
 allbonus: ft_printf_all ft_printf_bonus $(NAME)
 
-$(NAME): ft_printf_bonus  $(OBJ)
-	$(CC) $(CCFLAGS) -D FT_PRINTF_TEST_BONUS -o $@ $(OBJ) $(LDFLAGS)
+## don't need this anymore because i dropped bonus / mandatory seperation in ftpr Makefile.
+# $(NAME): ft_printf_bonus  $(OBJ)
+# 	$(CC) $(CCFLAGS) -D FT_PRINTF_TEST_BONUS -o $@ $(OBJ) $(LDFLAGS)
 
-# $(NAME): ft_printf_all $(OBJ)
-# 	$(CC) $(CCFLAGS) -o $@ $(OBJ) $(LDFLAGS)
+$(NAME): ft_printf_all $(OBJ)
+	$(CC) $(CCFLAGS) -o $@ $(OBJ) $(LDFLAGS)
 
 %.o: %.c header.h tests/tests.h
 	$(CC) $(CCFLAGS) -c -o $@ $<
